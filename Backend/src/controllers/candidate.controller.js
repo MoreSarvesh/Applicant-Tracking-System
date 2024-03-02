@@ -6,7 +6,7 @@ const { Candidate } = require("../models/candidate.model.js");
 const { Job } = require("../models/job.model.js");
 const { uploadOnCloudinary } = require("../utils/cloudinary.js");
 
-//regoster candidate
+//register candidate
 const storeCandidate = async (req, res) => {
   const { jobid } = req.query;
   const { name, email, details } = req.body;
@@ -75,7 +75,12 @@ const storeCandidate = async (req, res) => {
 
   //send ackwnoledgement email
 
-  return res.status(201).json({ msg: `${name} Successfully Applied` });
+  return res
+    .status(201)
+    .json({
+      msg: `${name} Successfully Applied`,
+      candidate_id: newCandidate._id,
+    });
 };
 
 module.exports = { storeCandidate };

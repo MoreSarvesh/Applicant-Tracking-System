@@ -5,8 +5,8 @@ const {
 
 //create new asessment
 const createNewAssessment = async (req, res) => {
-  const { title, totalMarks, questions } = req.body;
-  if (!title || !totalMarks || !questions)
+  const { title, totalMarks, questions, answers } = req.body;
+  if (!title || !totalMarks || !questions || !answers)
     return res.status(400).json({ error: "Feilds cannot be empty" });
 
   try {
@@ -25,6 +25,7 @@ const createNewAssessment = async (req, res) => {
       title,
       totalMarks,
       questions,
+      answers,
       totalQuestions: questions.length,
       recruiter: req.user._id,
     });
@@ -48,8 +49,9 @@ const createNewAssessment = async (req, res) => {
 
 //handeling assessment submission
 const handelAssessmentSubmission = async (req, res) => {
-  const { assessment_id, candidate_id, marks } = req.body;
-  if (!assessment_id || !candidate_id || marks)
+  let marks = 0;
+  const { assessment_id, candidate_id, answers } = req.body;
+  if (!assessment_id || !candidate_id || !answers)
     return res.status(400).json({ error: "Feilds cannot be empty" });
 
   const candidateReattempted = await Candidateassessment.findOne({
@@ -59,6 +61,17 @@ const handelAssessmentSubmission = async (req, res) => {
     return res
       .status(409)
       .json({ error: "Candidate already attempted the assessment" });
+
+  const assessment = await Assessment.findById(assessment_id);
+  if (!assessment) {
+    console.log("Assessment submission error: ccouldnt find the assessment");
+    return res.status(500).json({ "Server error": "Something went worng" });
+  }
+
+  //calculatingg marks
+  for (let i = 0; i < assessment.answers.length; i++) {
+    if (assessment.answers[i] === answers[i]) marks++;
+  }
 
   const newCandidateAttempt = await Candidateassessment.create({
     assessment_id,

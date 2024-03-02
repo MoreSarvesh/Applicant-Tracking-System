@@ -7,10 +7,6 @@ const assQuestionsSchema = new Schema({
     required: true,
   },
   options: [String],
-  answer: {
-    type: String,
-    required: true,
-  },
 });
 
 const assessmentSchema = new Schema({
@@ -24,7 +20,7 @@ const assessmentSchema = new Schema({
   },
   totalQuestions: {
     type: Number,
-    default: 1,
+    required: true,
   },
   favourite: {
     type: Boolean,
@@ -35,6 +31,7 @@ const assessmentSchema = new Schema({
     ref: "User",
   },
   questions: [assQuestionsSchema],
+  answers: [String],
 });
 
 const Assessment = model("Assessment", assessmentSchema);
