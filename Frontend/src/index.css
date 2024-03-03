@@ -1,0 +1,163 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  padding-inline: 10%;
+}
+
+/* Home Page */
+
+.container {
+  min-height: 100vh;
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  /* border: 1px solid black; */
+  padding: 5%;
+}
+
+/* .ats-img {
+  /* border: 1px solid black;
+} */
+
+.title h1 {
+  font-size: 5rem;
+  letter-spacing: 0.3rem;
+}
+
+.title h3 {
+  font-size: 2.5rem;
+}
+
+.title p {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.title .btn {
+  width: 120px;
+  height: 40px;
+  margin-right: 5em;
+}
+
+/* Login Page */
+
+.login {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  flex-flow: column nowrap;
+}
+
+.login h1 {
+  font-size: 3rem;
+  letter-spacing: normal;
+  margin-bottom: 3rem;
+}
+
+.login-form {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.login-form .login-btn {
+  margin-top: 2rem;
+  width: 250px;
+  height: 50px;
+}
+
+.login-form input {
+  width: 250px;
+  height: 50px;
+  display: block;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid black;
+  padding: 1em;
+  margin: 1em 0;
+  font-size: 1rem;
+}
+
+/* regestration Page */
+
+.reg {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  flex-flow: column nowrap;
+}
+
+.reg h1 {
+  font-size: 3rem;
+  letter-spacing: normal;
+  margin-bottom: 3rem;
+}
+
+.reg-form {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.reg-form .reg-btn {
+  margin-top: 2rem;
+  width: 250px;
+  height: 50px;
+}
+
+.reg-form input {
+  width: 250px;
+  height: 50px;
+  display: block;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid black;
+  padding: 1em;
+  margin: 1em 0;
+  font-size: 1rem;
+}
+
+/* job-details-page */
+
+table {
+  width: 100%;
+}
+
+table,
+th,
+td {
+  border-bottom: 1px solid black;
+  border-collapse: collapse;
+  padding: 1rem;
+  text-align: center;
+}
+
+.candidate-details {
+  width: 100%;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: flex-start;
+}
+
+.candidate-details-row td {
+  background-color: gray;
+}
+
+/* create new job form */
+
+.newJb-form {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+/* joblisitng css */

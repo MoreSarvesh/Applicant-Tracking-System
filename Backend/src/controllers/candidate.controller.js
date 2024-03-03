@@ -27,7 +27,7 @@ const storeCandidate = async (req, res) => {
 
   if (!pdfText || !jobid || !findJob) {
     console.log("candidate error: could not find resume text or job");
-    return res.status(500).json({ "Server error": "Something went wrong" });
+    return res.status(500).json({ error: "Something went wrong" });
   }
   //console.log(`Name: ${req.body.name}`);
   //console.log(`File: ${pdfText.text}`);
@@ -41,7 +41,7 @@ const storeCandidate = async (req, res) => {
   const embeddinbgs = await model.embed(sentences);
   if (!embeddinbgs) {
     console.log("candidate Error: failed to generate embeddings");
-    return res.status(500).json({ "Server error": "SSomething went wrong" });
+    return res.status(500).json({ error: "Something went wrong" });
   }
   const vector = embeddinbgs.arraySync();
 
@@ -75,12 +75,10 @@ const storeCandidate = async (req, res) => {
 
   //send ackwnoledgement email
 
-  return res
-    .status(201)
-    .json({
-      msg: `${name} Successfully Applied`,
-      candidate_id: newCandidate._id,
-    });
+  return res.status(201).json({
+    msg: `${name} Successfully Applied`,
+    candidate_id: newCandidate._id,
+  });
 };
 
 module.exports = { storeCandidate };

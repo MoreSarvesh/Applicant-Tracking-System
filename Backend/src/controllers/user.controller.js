@@ -27,7 +27,7 @@ const registerUser = async (req, res) => {
   );
 
   if (!userCreated)
-    return res.status(500).json({ "Server error": "Cannot Create User" });
+    return res.status(500).json({ error: "Cannot Create User" });
 
   return res
     .status(201)
@@ -55,7 +55,7 @@ const loginUser = async (req, res) => {
   if (!refreshToken && !accessToken)
     return res
       .status(500)
-      .json({ "Server error": "Could not generate refresh and sccess tokens" });
+      .json({ error: "Could not generate refresh and sccess tokens" });
 
   foundUser.refreshToken = refreshToken;
   await foundUser.save({ validateBeforeSave: false });
@@ -64,7 +64,7 @@ const loginUser = async (req, res) => {
     "-password -refrershToken"
   );
   if (!loggedInUser)
-    return res.status(500).json({ "Server error": "Could not loggin!" });
+    return res.status(500).json({ error: "Could not loggin!" });
 
   return res
     .status(200)

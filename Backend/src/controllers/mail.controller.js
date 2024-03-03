@@ -16,7 +16,7 @@ const composeMail = async (req, res) => {
   const mailInfo = sendMail(mailTransporter, mailOptions);
 
   if (!mailInfo)
-    return res.status(500).json({ "Server error": "CCould not send email" });
+    return res.status(500).json({ error: "CCould not send email" });
 
   const newMail = await Mail.create({
     to,
@@ -28,7 +28,7 @@ const composeMail = async (req, res) => {
 
   if (!newMail) {
     console.log("Could not store email");
-    return res.status(500).json({ "Server Error": "Could not store email" });
+    return res.status(500).json({ error: "Could not store email" });
   }
 
   return res.status(200).json({ message: "Mail Sent Successfully" });

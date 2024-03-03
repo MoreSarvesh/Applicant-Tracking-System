@@ -15,9 +15,7 @@ const createNewAssessment = async (req, res) => {
       return res.status(409).json({ error: "Assessment already exists" });
   } catch (error) {
     console.log(`Assessment.controller Error: ${error} `);
-    return res
-      .status(500)
-      .json({ "Server error": "Something went wrong Assessment" });
+    return res.status(500).json({ error: "Something went wrong Assessment" });
   }
 
   try {
@@ -31,9 +29,7 @@ const createNewAssessment = async (req, res) => {
     });
 
     if (!newAssessment)
-      return res
-        .status(500)
-        .json({ "Server error": "Could not create Assessment" });
+      return res.status(500).json({ error: "Could not create Assessment" });
 
     return res.status(201).json({
       message: `${title} Assessment Sucessfully created`,
@@ -41,9 +37,7 @@ const createNewAssessment = async (req, res) => {
     });
   } catch (error) {
     console.log(`Assessment.controller Error: ${error} `);
-    return res
-      .status(500)
-      .json({ "Server error": "Could not create Assessment" });
+    return res.status(500).json({ error: "Could not create Assessment" });
   }
 };
 
@@ -65,7 +59,7 @@ const handelAssessmentSubmission = async (req, res) => {
   const assessment = await Assessment.findById(assessment_id);
   if (!assessment) {
     console.log("Assessment submission error: ccouldnt find the assessment");
-    return res.status(500).json({ "Server error": "Something went worng" });
+    return res.status(500).json({ error: "Something went worng" });
   }
 
   //calculatingg marks
@@ -81,7 +75,7 @@ const handelAssessmentSubmission = async (req, res) => {
 
   if (!newCandidateAttempt) {
     console.log("Candidate error: Clound not register candidates attempt");
-    return res.status(500).json({ "Server error": "Something went wrong" });
+    return res.status(500).json({ error: "Something went wrong" });
   }
 
   return res
