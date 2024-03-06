@@ -288,3 +288,65 @@ td {
   flex-flow: row nowrap;
   gap: 1rem;
 }
+
+/* settings */
+.settings {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+.setting-form {
+  padding: 8%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  gap: 3rem;
+}
+
+.setting-form label {
+  font-size: 1.2rem;
+}
+
+.setting-form input {
+  font-size: 1rem;
+  width: 250px;
+  height: 30px;
+  margin-left: 10px;
+}
+.setting-form button {
+  width: 100px;
+  height: 30px;
+}
+.set-btn button {
+  margin-inline: 1rem;
+}
+
+/* talentpool */
+.talent-content {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+
+.talent-col {
+  flex-grow: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1.5rem;
+}
+
+.talent-header {
+  background-color: beige;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  border-bottom: 2px solid black;
+}
+
+.talent-details ul li {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid black;
+}

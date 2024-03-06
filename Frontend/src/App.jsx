@@ -10,6 +10,10 @@ import RootLayout from "./layouts/RootLayout.layout.jsx";
 import Hero from "./components/Hero.component.jsx";
 import Login from "./components/Login.component.jsx";
 import Jobs from "./pages/Jobs.jsx";
+import Settings from "./pages/Settings.jsx";
+import Assessment from "./pages/Assessment.jsx";
+import Mails from "./pages/Mails.jsx";
+import Talentpool from "./pages/Talentpool.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,10 +26,10 @@ const router = createBrowserRouter(
       <Route path="ats" element={<RootLayout />}>
         <Route index element={<div>Dashboard</div>} />
         <Route path="jobs" element={<Jobs />} />
-        <Route path="assessment" element={<div>assessment</div>} />
-        <Route path="emails" element={<div>emails</div>} />
-        <Route path="talentpool" element={<div>talentpool</div>} />
-        <Route path="settings" element={<div>settings</div>} />
+        <Route path="assessments" element={<Assessment />} />
+        <Route path="emails" element={<Mails />} />
+        <Route path="talentpool" element={<Talentpool />} />
+        <Route path="settings" element={<Settings />} />
       </Route>
     </Route>
   )

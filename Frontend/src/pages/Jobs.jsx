@@ -16,7 +16,13 @@ const Jobs = () => {
           <div className="listings">
             <div className="listings-job">
               <ul>
-                <Joblist title="Job 1" count={16} />
+                <Joblist
+                  title="Job 1"
+                  count={16}
+                  openings={10}
+                  hired={4}
+                  rejected={2}
+                />
               </ul>
             </div>
           </div>

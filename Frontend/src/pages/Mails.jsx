@@ -1,26 +1,25 @@
-import Assessmentlist from "../components/Assessmentlist.components.jsx";
+import Maillist from "../components/Maillist.component.jsx";
 import Pageheader from "../components/Pageheader.component.jsx";
 
-const Assessment = () => {
+const Mails = () => {
   return (
     <main className="jb-main">
-      <Pageheader title="Assessments" />
+      <Pageheader title="Emails" />
       <div className="jb-content">
         <div className="left">
           <div className="searchbar">
             <form action="#" className="form-search">
               <input type="text" placeholder="Search Job" />
             </form>
-            <button>New Assessment</button>
+            <button>Compose Mail</button>
           </div>
           <div className="listings">
             <div className="listings-job">
               <ul>
-                <Assessmentlist
-                  title="Assessment 1"
-                  attemptCount={10}
-                  passed={7}
-                  failed={3}
+                <Maillist
+                  subject="Subject 1"
+                  to="sarveshmorer13244@gmail.com"
+                  date="06-03-2024"
                 />
               </ul>
             </div>
@@ -31,4 +30,4 @@ const Assessment = () => {
   );
 };
 
-export default Assessment;
+export default Mails;

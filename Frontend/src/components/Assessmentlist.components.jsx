@@ -1,4 +1,4 @@
-const Joblist = ({ title, count, openings, hired, rejected }) => {
+const Assessmentlist = ({ title, attemptCount, passed, failed }) => {
   return (
     <li>
       <div className="jb-title">
@@ -9,15 +9,14 @@ const Joblist = ({ title, count, openings, hired, rejected }) => {
         </div>
       </div>
       <div className="jb-info">
-        {count} Candidate
+        {attemptCount} Candidates
         <div className="jb-actions">
-          <button>{openings}-openings</button>
-          <button>{hired}-hired</button>
-          <button>{rejected}-rejected</button>
+          <button>{passed}-Pass</button>
+          <button>{failed}-Fail</button>
         </div>
       </div>
     </li>
   );
 };
 
-export default Joblist;
+export default Assessmentlist;

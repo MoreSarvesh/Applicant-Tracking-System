@@ -1,23 +1,21 @@
-const Joblist = ({ title, count, openings, hired, rejected }) => {
+const Maillist = ({ subject, to, date }) => {
   return (
     <li>
       <div className="jb-title">
-        {title}
+        {subject}
         <div className="jb-actions">
           <button>star</button>
           <button>Delete</button>
         </div>
       </div>
       <div className="jb-info">
-        {count} Candidate
+        To: {to}
         <div className="jb-actions">
-          <button>{openings}-openings</button>
-          <button>{hired}-hired</button>
-          <button>{rejected}-rejected</button>
+          <button>{date}</button>
         </div>
       </div>
     </li>
   );
 };
 
-export default Joblist;
+export default Maillist;
