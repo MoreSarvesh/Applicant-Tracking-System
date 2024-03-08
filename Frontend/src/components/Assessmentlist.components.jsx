@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 const Assessmentlist = ({ title, attemptCount, passed, failed }) => {
   return (
     <li>
@@ -15,6 +17,7 @@ const Assessmentlist = ({ title, attemptCount, passed, failed }) => {
           <button>{failed}-Fail</button>
         </div>
       </div>
+      <NavLink to="candidate">Details</NavLink>
     </li>
   );
 };

@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 const Joblist = ({ title, count, openings, hired, rejected }) => {
   return (
     <li>
@@ -16,6 +18,7 @@ const Joblist = ({ title, count, openings, hired, rejected }) => {
           <button>{rejected}-rejected</button>
         </div>
       </div>
+      <NavLink to="candidate">Details</NavLink>
     </li>
   );
 };

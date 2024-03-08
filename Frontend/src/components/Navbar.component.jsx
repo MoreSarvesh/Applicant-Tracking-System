@@ -4,29 +4,43 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="nav-top">
         <div>
-          <h3>HYR-GPT</h3>
+          <h3>HR.GPT</h3>
         </div>
         <ul>
           <li>
-            <NavLink to="/ats">Dashboard</NavLink>
+            <NavLink className="nav-link" to="/ats">
+              Dashboard
+            </NavLink>
           </li>
           <li>
-            <NavLink to="jobs">Job Listing</NavLink>
+            <NavLink className="nav-link" to="jobs">
+              Job Listing
+            </NavLink>
           </li>
           <li>
-            <NavLink to="assessments">Assessments</NavLink>
+            <NavLink className="nav-link" to="assessments">
+              Assessments
+            </NavLink>
           </li>
           <li>
-            <NavLink to="emails">Emails</NavLink>
+            <NavLink className="nav-link" to="emails">
+              Emails
+            </NavLink>
           </li>
           <li>
-            <NavLink to="talentpool">Talent Pool</NavLink>
+            <NavLink className="nav-link" to="talentpool">
+              Talent Pool
+            </NavLink>
           </li>
         </ul>
       </div>
       <div className="nav-bottom">
         <ul>
-          <NavLink to="settings">Settings</NavLink>
+          <li>
+            <NavLink className="nav-link" to="settings">
+              Settings
+            </NavLink>
+          </li>
         </ul>
       </div>
     </nav>

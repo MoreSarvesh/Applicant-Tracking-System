@@ -91,7 +91,7 @@ li {
   font-size: 1rem;
 }
 
-/* regestration Page */
+/* registration Page */
 
 .reg {
   flex-grow: 1;
@@ -176,24 +176,26 @@ td {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   border-right: 2px solid black;
   background-color: rebeccapurple;
+  width: 13%;
 }
 
 .jb-container .navbar .nav-top div {
   height: 50px;
   border-bottom: 2px solid black;
+  text-align: center;
 }
 
 .jb-container .navbar .nav-top div h3 {
-  padding-inline: 1rem;
+  padding: 1rem;
 }
 
 .jb-container .navbar ul li {
   border-bottom: 2px solid black;
-  padding-inline: 1rem;
   padding: 1rem;
+  text-align: center;
 }
 
 .jb-container .navbar .nav-bottom ul li {
@@ -201,10 +203,18 @@ td {
   border-top: 2px solid black;
 }
 
-.jb-container .navbar ul li:hover {
-  background-color: bisque;
+.nav-link:hover {
+  color: bisque;
   cursor: pointer;
-  border-radius: 10px;
+}
+
+.nav-link {
+  color: black;
+  text-decoration: none;
+}
+
+.active {
+  color: bisque;
 }
 
 /* joblisting main */
@@ -214,7 +224,7 @@ td {
 }
 
 .jb-header {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   width: 100%;
   height: 50px;
   border-bottom: 2px solid black;
