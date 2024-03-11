@@ -1,7 +1,11 @@
+import { useState } from "react";
 import Joblist from "../components/Joblist.component.jsx";
 import Pageheader from "../components/Pageheader.component.jsx";
+import Modal from "../components/Modal.component.jsx";
+import CreateJob from "../components/CreateJob.component.jsx";
 
 const Jobs = () => {
+  const [showModal, setShowModal] = useState(false);
   return (
     <main className="jb-main">
       <Pageheader title="Job Listings" />
@@ -11,7 +15,7 @@ const Jobs = () => {
             <form action="#" className="form-search">
               <input type="text" placeholder="Search Job" />
             </form>
-            <button>New Job</button>
+            <button onClick={() => setShowModal(true)}>New Job</button>
           </div>
           <div className="listings">
             <div className="listings-job">
@@ -28,6 +32,11 @@ const Jobs = () => {
           </div>
         </div>
       </div>
+      {showModal && (
+        <Modal title="Create New Job" setShowModal={setShowModal}>
+          <CreateJob />
+        </Modal>
+      )}
     </main>
   );
 };
