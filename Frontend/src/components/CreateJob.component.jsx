@@ -21,12 +21,19 @@ const CreateJob = () => {
     setCustom((prev) => [...prev, newField]);
     setlabel("");
     setOptions([]);
-    console.log(custom);
+    console.log(newField);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const newJob = {
+      title: title,
+      description: description,
+      openings: openings,
+      applicationForm: custom,
+    };
     console.log("New Job Created");
+    console.log(newJob);
   };
 
   const addOptions = (e) => {
@@ -38,7 +45,7 @@ const CreateJob = () => {
     <div className="jb-form-container">
       <form onSubmit={handleSubmit} className="jb-creation-form">
         <label htmlFor="title">
-          Title:
+          Job Title:
           <input
             type="text"
             name="title"
@@ -48,19 +55,6 @@ const CreateJob = () => {
               setTitle(e.target.value);
             }}
           />
-        </label>
-        Description:
-        <label htmlFor="description">
-          <textarea
-            name="description"
-            id="description"
-            cols="30"
-            rows="10"
-            value={description}
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
-          ></textarea>
         </label>
         <label htmlFor="openings">
           Openings:
@@ -74,10 +68,21 @@ const CreateJob = () => {
             }}
           />
         </label>
+
+        <label htmlFor="description">Job Description:</label>
+        <textarea
+          name="description"
+          id="description"
+          rows="10"
+          value={description}
+          onChange={(e) => {
+            setDescription(e.target.value);
+          }}
+        ></textarea>
         <fieldset>
           <legend>Candidate Application Fields</legend>
           <p>Mandatory Fields: Name, Email, Resume</p>
-          <p>Custom Fields: {custom.toString()}</p>
+          <p>Custom Fields: {custom.map((field) => field.label).toString()}</p>
         </fieldset>
         <button type="submit">Create Job</button>
       </form>
@@ -126,7 +131,13 @@ const CreateJob = () => {
             <div>
               <label htmlFor="options">
                 Options:
-                <input type="text" name="options" id="options" />
+                <input
+                  type="text"
+                  name="options"
+                  id="options"
+                  value={optionsinput}
+                  onChange={(e) => setOptionsinput(e.target.value)}
+                />
               </label>
               <button
                 onClick={(e) => {

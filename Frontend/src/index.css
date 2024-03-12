@@ -380,8 +380,8 @@ td {
   z-index: 10;
   background-color: white;
   padding: 1rem;
-  width: 40%;
-  height: 80%;
+  width: 60%;
+  height: 85%;
   overflow-y: scroll;
 }
 
@@ -409,6 +409,7 @@ td {
 
 .jb-creation-form button {
   width: 100px;
+  padding: 5px;
 }
 
 .jb-creation-form fieldset {
@@ -431,8 +432,26 @@ td {
 }
 .custom-form button {
   width: 70px;
+  padding: 5px;
 }
 
 .custom-form select {
   width: 100px;
+}
+
+.jb-creation-form input,
+.jb-creation-form textarea,
+.custom-form input,
+.custom-form select {
+  margin-left: 1rem;
+  padding: 5px;
+}
+
+.jb-creation-form textarea {
+  max-width: 500px;
+}
+
+/* email form */
+.reciever button {
+  margin-left: 1rem;
 }
