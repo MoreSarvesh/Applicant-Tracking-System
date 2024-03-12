@@ -380,8 +380,9 @@ td {
   z-index: 10;
   background-color: white;
   padding: 1rem;
-  width: 25%;
-  border-radius: 5%;
+  width: 40%;
+  height: 80%;
+  overflow-y: scroll;
 }
 
 .modal-heading {
@@ -391,21 +392,47 @@ td {
   margin-bottom: 1rem;
 }
 
-/* .modal-close-btn {
-  margin-left: 85%;
-  margin-bottom: 1rem;
-} */
-
 /* job creation */
+
+.jb-form-container {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 1rem;
+}
+
 .jb-creation-form {
   display: flex;
   flex-flow: column wrap;
   gap: 1rem;
   margin-top: 1rem;
 }
+
+.jb-creation-form button {
+  width: 100px;
+}
+
 .jb-creation-form fieldset {
   padding: 1.5rem;
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column nowrap;
   gap: 1rem;
+}
+
+.custom-form fieldset {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.custom-form div button {
+  width: 70px;
+  margin-left: 10px;
+}
+.custom-form button {
+  width: 70px;
+}
+
+.custom-form select {
+  width: 100px;
 }
