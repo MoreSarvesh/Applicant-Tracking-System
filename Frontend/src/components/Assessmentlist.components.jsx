@@ -4,7 +4,7 @@ const Assessmentlist = ({ title, attemptCount, passed, failed }) => {
   return (
     <li>
       <div className="jb-title">
-        {title}
+        <NavLink to="candidate">{title}</NavLink>
         <div className="jb-actions">
           <button>star</button>
           <button>Delete</button>
@@ -17,7 +17,6 @@ const Assessmentlist = ({ title, attemptCount, passed, failed }) => {
           <button>{failed}-Fail</button>
         </div>
       </div>
-      <NavLink to="candidate">Details</NavLink>
     </li>
   );
 };

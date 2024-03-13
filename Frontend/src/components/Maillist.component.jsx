@@ -1,8 +1,10 @@
+import { NavLink } from "react-router-dom";
+
 const Maillist = ({ subject, to, date }) => {
   return (
     <li>
       <div className="jb-title">
-        {subject}
+        <NavLink to="mails">{subject}</NavLink>
         <div className="jb-actions">
           <button>star</button>
           <button>Delete</button>

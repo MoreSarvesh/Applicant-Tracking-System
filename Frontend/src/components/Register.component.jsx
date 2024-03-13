@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Register = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [apiKey, setApiKey] = useState("");
+
+  const handleRegisterSubmit = (e) => {
+    e.preventDefault();
+    console.log("Register submit");
+  };
   return (
     <div className="title reg">
       <h1>Register</h1>
-      <form action="#" className="reg-form">
+      <form className="reg-form" onSubmit={handleRegisterSubmit}>
         <label htmlFor="username" className="username-label">
           <input
             type="text"
             id="username"
             placeholder="Username"
             className="username-input"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </label>
         <label htmlFor="password" className="password-label">
@@ -19,6 +29,8 @@ const Register = () => {
             id="password"
             placeholder="Password"
             className="password-input"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </label>
         <label htmlFor="api" className="api-label">
@@ -27,6 +39,8 @@ const Register = () => {
             id="api"
             placeholder="api-key"
             className="api-input"
+            value={apiKey}
+            onChange={(e) => setApiKey(e.target.value)}
           />
         </label>
         <button type="submit" className="reg-btn">

@@ -4,7 +4,7 @@ const Joblist = ({ title, count, openings, hired, rejected }) => {
   return (
     <li>
       <div className="jb-title">
-        {title}
+        <NavLink to="candidate">{title}</NavLink>
         <div className="jb-actions">
           <button>star</button>
           <button>Delete</button>
@@ -18,7 +18,6 @@ const Joblist = ({ title, count, openings, hired, rejected }) => {
           <button>{rejected}-rejected</button>
         </div>
       </div>
-      <NavLink to="candidate">Details</NavLink>
     </li>
   );
 };

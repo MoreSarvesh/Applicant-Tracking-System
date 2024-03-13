@@ -6,14 +6,27 @@ import { useState } from "react";
 
 const Assessment = () => {
   const [showModal, setShowModal] = useState(false);
+  const [search, setSearch] = useState("");
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <main className="jb-main">
       <Pageheader title="Assessments" />
       <div className="jb-content">
         <div className="left">
           <div className="searchbar">
-            <form action="#" className="form-search">
-              <input type="text" placeholder="Search Job" />
+            <form className="form-search" onSubmit={handleSearchSubmit}>
+              <input
+                type="text"
+                placeholder="Search Assessment"
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                }}
+              />
             </form>
             <button onClick={() => setShowModal(true)}>New Assessment</button>
           </div>
