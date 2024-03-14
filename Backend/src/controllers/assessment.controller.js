@@ -2,6 +2,8 @@ const { Assessment } = require("../models/assessment.model.js");
 const {
   Candidateassessment,
 } = require("../models/candidateAssessment.model.js");
+const { OpenAI } = require("openai");
+const { User } = require("../models/user.model.js");
 
 //create new asessment
 const createNewAssessment = async (req, res) => {
@@ -83,4 +85,63 @@ const handelAssessmentSubmission = async (req, res) => {
     .json({ message: `${candidate_id} submitted assessment sucessfully ` });
 };
 
-module.exports = { createNewAssessment, handelAssessmentSubmission };
+//generate questions
+const generateQuestions = async (req, res) => {
+  const { skillsToAssess, totalQuestions, topicsCovered, difficultyLevel } =
+    req.body;
+  const prompt = `As an HR professional, I need to create assignment questions to evaluate candidates. Please generate a set of questions based on the following details:
+  1. Assignment Overview: The purpose of this assignment is to assess the candidate's ability in ${skillsToAssess}. The assignment will consist of ${totalQuestions} questions designed to evaluate the candidate.
+  2. Question Types: Multiple choice questions
+  3. Topics Covered in the assignment: ${topicsCovered}
+  4. Difficulty level of questions: ${difficultyLevel}
+  
+  When generating questions, consider the following guidelines:
+  1. Ensure that questions are clear, concise, and free from ambiguity.
+  2. Include a mix of factual, conceptual, and application-based questions to assess different levels of understanding.
+  3. The options should be plausible choices for each question.
+  4. Additionally, provide an array of correct answers corresponding to the index of each question in the response array.
+
+  The response should be in the following JSON object format:
+  question_array = [
+    {"question": "Question 1", "options": ["Option 1", "Option 2", "Option 3", "Option 4"]},
+    {"question": "Question 2", "options": ["Option 1", "Option 2", "Option 3", "Option 4"]},
+    {"question": "Question 3", "options": ["Option 1", "Option 2", "Option 3", "Option 4"]},
+    {"question": "Question 4", "options": ["Option 1", "Option 2", "Option 3", "Option 4"]}
+]
+
+correct_answers = [index_of_correct_answer_for_question_1, index_of_correct_answer_for_question_2, index_of_correct_answer_for_question_3, index_of_correct_answer_for_question_4]
+`;
+
+  const user = await User.findById(req.user._id);
+
+  const openai = new OpenAI({
+    apiKey: user.apiKey,
+  });
+  const completion = await openai.chat.completions.create({
+    messages: [
+      {
+        role: "system",
+        content:
+          "You are a helpful assistance of HR. Your task is to generate assignment question for evaluating the candidates.",
+      },
+      {
+        role: "user",
+        content: prompt,
+      },
+    ],
+    model: "gpt-3.5-turbo",
+  });
+
+  if (!completion) {
+    console.log("Email Error: Could Not Generate Email Body");
+    return res.status(500).json({ error: "Could not generate email" });
+  }
+  console.log(completion.choices[0].message.content);
+  return res.status(201).json({ data: completion.choices[0].message.content });
+};
+
+module.exports = {
+  createNewAssessment,
+  handelAssessmentSubmission,
+  generateQuestions,
+};
