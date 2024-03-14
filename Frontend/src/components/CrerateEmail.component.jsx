@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const CrerateEmail = () => {
+const CrerateEmail = ({ setShowModal }) => {
   const [sender, setSender] = useState("");
   const [password, setPassword] = useState("");
   const [subject, setSubject] = useState("");
@@ -11,7 +11,16 @@ const CrerateEmail = () => {
 
   const handleEmailSubmission = (e) => {
     e.preventDefault();
+    const newEmail = {
+      sender,
+      password,
+      subject,
+      body,
+      to,
+    };
     console.log("Email Crerated");
+    console.log(newEmail);
+    setShowModal(false);
   };
 
   const addRecieverMail = (e) => {
@@ -19,6 +28,12 @@ const CrerateEmail = () => {
     setTo((prev) => [...prev, toEmail]);
     setToEmail("");
   };
+
+  const generateAssessment = (e) => {
+    e.preventDefault();
+    //set email body
+  };
+
   return (
     <div className="jb-form-container">
       <form onSubmit={handleEmailSubmission} className="jb-creation-form">
@@ -59,7 +74,7 @@ const CrerateEmail = () => {
               }}
             />
           </label>
-          <button onClick={(e) => addRecieverMail(e)}>Add</button>
+          <button onClick={addRecieverMail}>Add</button>
         </div>
         <p>TO: {to.toString()}</p>
         <label htmlFor="subject">Mail subject:</label>
@@ -84,13 +99,7 @@ const CrerateEmail = () => {
             setPrompt(e.target.value);
           }}
         ></textarea>
-        <button
-          onClick={(e) => {
-            generateAssessment(e);
-          }}
-        >
-          Generate Email
-        </button>
+        <button onClick={generateAssessment}>Generate Email</button>
         <label htmlFor="body">Mail body:</label>{" "}
         <textarea
           name="body"
@@ -102,7 +111,7 @@ const CrerateEmail = () => {
             setBody(e.target.value);
           }}
         ></textarea>
-        <button type="submit">Create Assessment</button>
+        <button type="submit">Compose Mail</button>
       </form>
     </div>
   );

@@ -7,6 +7,9 @@ import Modal from "../components/Modal.component.jsx";
 const Mails = () => {
   const [showModal, setShowModal] = useState(false);
   const [search, setSearch] = useState("");
+  const [subject, setSubject] = useState("");
+  const [to, setTo] = useState("");
+  const [date, setDate] = useState("");
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -33,11 +36,7 @@ const Mails = () => {
           <div className="listings">
             <div className="listings-job">
               <ul>
-                <Maillist
-                  subject="Subject 1"
-                  to="sarveshmorer13244@gmail.com"
-                  date="06-03-2024"
-                />
+                <Maillist subject={subject} to={to} date={date} />
               </ul>
             </div>
           </div>
@@ -45,7 +44,7 @@ const Mails = () => {
       </div>
       {showModal && (
         <Modal title="Compose Email" setShowModal={setShowModal}>
-          <CrerateEmail />
+          <CrerateEmail setShowModal={setShowModal} />
         </Modal>
       )}
     </main>

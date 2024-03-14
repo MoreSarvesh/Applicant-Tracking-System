@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const CreateJob = () => {
+const CreateJob = ({ setShowModal }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [openings, setOpenings] = useState(0);
@@ -32,8 +32,10 @@ const CreateJob = () => {
       openings: openings,
       applicationForm: custom,
     };
+
     console.log("New Job Created");
     console.log(newJob);
+    setShowModal(false);
   };
 
   const addOptions = (e) => {

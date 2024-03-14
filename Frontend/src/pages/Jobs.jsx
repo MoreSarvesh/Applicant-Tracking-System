@@ -7,6 +7,11 @@ import CreateJob from "../components/CreateJob.component.jsx";
 const Jobs = () => {
   const [showModal, setShowModal] = useState(false);
   const [search, setSearch] = useState("");
+  const [title, setTitle] = useState("");
+  const [totalCount, setTotalCount] = useState(0);
+  const [openings, setOpenings] = useState(0);
+  const [hired, setHired] = useState(0);
+  const [rejected, setRejected] = useState(0);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -34,11 +39,11 @@ const Jobs = () => {
             <div className="listings-job">
               <ul>
                 <Joblist
-                  title="Job 1"
-                  count={16}
-                  openings={10}
-                  hired={4}
-                  rejected={2}
+                  title={title}
+                  count={totalCount}
+                  openings={openings}
+                  hired={hired}
+                  rejected={rejected}
                 />
               </ul>
             </div>
@@ -47,7 +52,7 @@ const Jobs = () => {
       </div>
       {showModal && (
         <Modal title="Create New Job" setShowModal={setShowModal}>
-          <CreateJob />
+          <CreateJob setShowModal={setShowModal} />
         </Modal>
       )}
     </main>

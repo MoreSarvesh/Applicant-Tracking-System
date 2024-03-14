@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Talent from "../components/Talent.component.jsx";
 import Pageheader from "../components/Pageheader.component.jsx";
 
 const Talentpool = () => {
+  const [name, setName] = useState("");
+  const [jobProfile, setJobProfile] = useState("");
+  const [email, setEmail] = useState("");
   return (
     <main className="jb-main">
       <Pageheader title="Talent Pool" />
@@ -11,8 +14,8 @@ const Talentpool = () => {
           <div className="talent-header">Candidate Name</div>
           <div className="talent-details">
             <ul>
-              <Talent detail="sarvesh more" />
-              <Talent detail="sarvesh more" />
+              <Talent detail={name} />
+              <Talent detail={name} />
             </ul>
           </div>
         </div>
@@ -20,8 +23,8 @@ const Talentpool = () => {
           <div className="talent-header">Job Profile</div>
           <div className="talent-details">
             <ul>
-              <Talent detail="Gameplay developer" />
-              <Talent detail="Gameplay developer" />
+              <Talent detail={jobProfile} />
+              <Talent detail={jobProfile} />
             </ul>
           </div>
         </div>
@@ -29,8 +32,8 @@ const Talentpool = () => {
           <div className="talent-header">Email Address</div>
           <div className="talent-details">
             <ul>
-              <Talent detail="sarveshmore1324@gmail.com" />
-              <Talent detail="sarveshmore1324@gmail.com" />
+              <Talent detail={email} />
+              <Talent detail={email} />
             </ul>
           </div>
         </div>

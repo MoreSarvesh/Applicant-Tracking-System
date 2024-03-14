@@ -1,7 +1,11 @@
+import { useState } from "react";
 import Candidate from "../components/Candidate.component.jsx";
 import Pageheader from "../components/Pageheader.component.jsx";
 
 const JobDetails = ({ title }) => {
+  const [name, setName] = useState("");
+  const [score, setScore] = useState(0);
+  const [status, setStatus] = useState("");
   return (
     <main className="jb-main">
       <Pageheader title={title} />
@@ -16,8 +20,8 @@ const JobDetails = ({ title }) => {
             </tr>
           </thead>
           <tbody>
-            <Candidate name="sarvesh more" score={10} status="hire" />
-            <Candidate name="sarvesh more" score={10} status="applied" />
+            <Candidate name={name} score={score} status={status} />
+            <Candidate name={name} score={score} status={status} />
           </tbody>
         </table>
       </div>

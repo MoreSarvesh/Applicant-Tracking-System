@@ -7,6 +7,10 @@ import { useState } from "react";
 const Assessment = () => {
   const [showModal, setShowModal] = useState(false);
   const [search, setSearch] = useState("");
+  const [title, setTitle] = useState("");
+  const [totalCandidates, setTotalCandidates] = useState(0);
+  const [passed, setPassed] = useState(0);
+  const [failed, setFailed] = useState(0);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -34,10 +38,10 @@ const Assessment = () => {
             <div className="listings-job">
               <ul>
                 <Assessmentlist
-                  title="Assessment 1"
-                  attemptCount={10}
-                  passed={7}
-                  failed={3}
+                  title={title}
+                  attemptCount={totalCandidates}
+                  passed={passed}
+                  failed={failed}
                 />
               </ul>
             </div>
@@ -46,7 +50,7 @@ const Assessment = () => {
       </div>
       {showModal && (
         <Modal title="Create New Assessment" setShowModal={setShowModal}>
-          <CrerateAssessment />
+          <CrerateAssessment setShowModal={setShowModal} />
         </Modal>
       )}
     </main>

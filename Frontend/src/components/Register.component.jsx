@@ -7,7 +7,13 @@ const Register = () => {
 
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
+    const newUser = {
+      username,
+      password,
+      apiKey,
+    };
     console.log("Register submit");
+    console.log(newUser);
   };
   return (
     <div className="title reg">
