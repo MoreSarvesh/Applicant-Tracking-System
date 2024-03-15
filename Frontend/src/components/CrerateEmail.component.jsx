@@ -4,22 +4,41 @@ const CrerateEmail = ({ setShowModal }) => {
   const [sender, setSender] = useState("");
   const [password, setPassword] = useState("");
   const [subject, setSubject] = useState("");
-  const [prompt, setPrompt] = useState("");
+  const [purpose, setPurpose] = useState("");
+  const [keyPoints, setKeyPoints] = useState("");
+  const [attachmentsLinks, setAttachmentsLinks] = useState("");
   const [body, setBody] = useState("");
   const [to, setTo] = useState([]);
   const [toEmail, setToEmail] = useState("");
 
-  const handleEmailSubmission = (e) => {
+  const handleEmailSubmission = async (e) => {
     e.preventDefault();
     const newEmail = {
-      sender,
-      password,
+      user,
+      pwd,
       subject,
       body,
       to,
     };
-    console.log("Email Crerated");
     console.log(newEmail);
+    const response = await fetch("http://localhost:5000/mails/compose", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newEmail),
+    });
+
+    if (!response.ok) {
+      console.log("Email Sending Failed");
+      const emailFailData = await response.json();
+      console.log(emailFailData);
+      return;
+    }
+    console.log("New email Created");
+    const emailData = await response.json();
+    console.log(emailData);
     setShowModal(false);
   };
 
@@ -29,9 +48,36 @@ const CrerateEmail = ({ setShowModal }) => {
     setToEmail("");
   };
 
-  const generateAssessment = (e) => {
+  const generateAssessment = async (e) => {
     e.preventDefault();
     //set email body
+    const prompt = {
+      subject,
+      recipient: to,
+      purpose,
+      keyPoints,
+      attachmentsLinks,
+    };
+    console.log(prompt);
+    const response = await fetch("http://localhost:5000/mails/generate", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(prompt),
+    });
+
+    if (!response.ok) {
+      console.log("Email Creation Failed");
+      const emailFailData = await response.json();
+      console.log(emailFailData);
+      return;
+    }
+    console.log("New Body Created");
+    const emailBodyData = await response.json();
+    console.log(emailBodyData);
+    setBody(emailBodyData.data);
   };
 
   return (
@@ -88,19 +134,38 @@ const CrerateEmail = ({ setShowModal }) => {
             setSubject(e.target.value);
           }}
         ></textarea>
-        <label htmlFor="prompt">Mail Prompt:</label>
-        <textarea
-          name="prompt"
-          id="prompt"
-          cols="70"
-          rows="5"
-          value={prompt}
-          onChange={(e) => {
-            setPrompt(e.target.value);
-          }}
-        ></textarea>
-        <button onClick={generateAssessment}>Generate Email</button>
-        <label htmlFor="body">Mail body:</label>{" "}
+        <label htmlFor="purpose">
+          Purpose:
+          <input
+            type="text"
+            name="purpose"
+            id="purpose"
+            value={purpose}
+            onChange={(e) => setPurpose(e.target.value)}
+          />
+        </label>
+        <label htmlFor="keypoints">
+          Key-Points:
+          <input
+            type="text"
+            name="keypoints"
+            id="keypoints"
+            value={keyPoints}
+            onChange={(e) => setKeyPoints(e.target.value)}
+          />
+        </label>
+        <label htmlFor="attachmentslink">
+          Links:
+          <input
+            type="text"
+            name="attachmentslink"
+            id="attachmentslink"
+            value={attachmentsLinks}
+            onChange={(e) => setAttachmentsLinks(e.target.value)}
+          />
+        </label>
+        <button onClick={generateAssessment}>Generate Body</button>
+        <label htmlFor="body">Mail body:</label>
         <textarea
           name="body"
           id="body"

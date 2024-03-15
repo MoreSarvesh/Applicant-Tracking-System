@@ -13,16 +13,15 @@ const composeMail = async (req, res) => {
   if (!to || !subject || !body)
     return res.status(400).json({ error: "Feilds Cannnot be Empty" });
 
+  //sending mail
   const mailTransporter = createTransporter(user, pwd);
   const mailOptions = setMailOptions(user, to, subject, body);
   const mailInfo = sendMail(mailTransporter, mailOptions);
 
-  if (!mailInfo)
-    return res.status(500).json({ error: "CCould not send email" });
+  if (!mailInfo) return res.status(500).json({ error: "Could not send email" });
 
   const newMail = await Mail.create({
     to,
-    cc,
     subject,
     body,
     recruiter: req.user._id,
@@ -53,18 +52,13 @@ const generateBody = async (req, res) => {
   const prompt = `As an HR professional, I need to communicate effectively with candidates via email. Please generate email content with the following information:
   1. Subject: ${subject}
   2. Recipient's Name: ${recipient}
-  3. Context and Background: ${backgroundContext}
-  4. Purpose of the Email:${purpose}
+  3. Purpose of the Email:${purpose}
   5. Key Points to Communicate: ${keyPoints}
-  6. Call to Action: ${callToAction}
-  7. Attachments or Links:${attachmentsLinks}
-  8. Contact Information:${contactDetails}
+  7. Attachments or Links:${attachmentsLinks || "none"}
   
   Instructions for writing email:
-  1. Ensure that the tone of the emails is professional, courteous, and respectful.
-  2. Include all necessary details and information in the email.
-  3. Keep the emails concise and to the point, while still providing all essential information and limit the email to 200 words.
-  4. Please provide the response in single paragraph and in plain text format.`;
+  3. Exclude Subject from your response.
+  4. Keep the emails concise and to the point, and limit the your response to 150 words and in plain text format.`;
 
   const user = await User.findById(req.user._id);
 
@@ -94,4 +88,15 @@ const generateBody = async (req, res) => {
   return res.status(201).json({ data: completion.choices[0].message.content });
 };
 
-module.exports = { composeMail, generateBody };
+//retrieve all emails
+const retrieveMails = async (req, res) => {
+  const mails = await Mail.find({ recruiter: req.user._id });
+  if (!mails)
+    return res.status(500).json({ error: "Could not retrieve Emails" });
+
+  return res
+    .status(200)
+    .json({ message: "Sucessfully retrieved emails", details: mails });
+};
+
+module.exports = { composeMail, generateBody, retrieveMails };

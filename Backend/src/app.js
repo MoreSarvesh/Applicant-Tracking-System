@@ -2,10 +2,11 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
-
+const credentials = require("./middlewares/credentials.middleware.js");
 const app = express();
 
 //middlweares
+app.use(credentials);
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN,

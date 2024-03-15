@@ -1,7 +1,7 @@
 import CandidateDetails from "../components/CandidateDetails.component.jsx";
 import { useState } from "react";
 
-const Candidate = ({ name, score, status }) => {
+const Candidate = ({ name, score, status, email, details, note, resume }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [candidateStatus, setCandidateStatus] = useState(status);
 
@@ -34,7 +34,14 @@ const Candidate = ({ name, score, status }) => {
           <button>A</button>
         </td>
       </tr>
-      {showDetails && <CandidateDetails />}
+      {showDetails && (
+        <CandidateDetails
+          email={email}
+          details={details}
+          note={note}
+          resume={resume}
+        />
+      )}
     </>
   );
 };

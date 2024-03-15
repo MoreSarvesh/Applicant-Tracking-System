@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [apiKey, setApiKey] = useState("");
 
-  const handleRegisterSubmit = (e) => {
+  const navigate = useNavigate();
+  const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     const newUser = {
       username,
@@ -13,7 +15,18 @@ const Register = () => {
       apiKey,
     };
     console.log("Register submit");
-    console.log(newUser);
+    const response = await fetch("http://localhost:5000/users/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    });
+
+    if (!response.ok) console.log("Registeration Failed");
+    const userDetails = await response.json();
+    console.log(userDetails);
+    return navigate("/login");
   };
   return (
     <div className="title reg">

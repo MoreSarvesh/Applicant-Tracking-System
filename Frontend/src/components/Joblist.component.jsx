@@ -1,10 +1,12 @@
 import { NavLink } from "react-router-dom";
 
-const Joblist = ({ title, count, openings, hired, rejected }) => {
+const Joblist = ({ title, count, openings, hired, rejected, id }) => {
   return (
     <li>
       <div className="jb-title">
-        <NavLink to="candidate">{title}</NavLink>
+        <NavLink to="candidate" state={{ id }}>
+          {title}
+        </NavLink>
         <div className="jb-actions">
           <button>star</button>
           <button>Delete</button>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Maillist from "../components/Maillist.component.jsx";
 import Pageheader from "../components/Pageheader.component.jsx";
 import CrerateEmail from "../components/CrerateEmail.component.jsx";
@@ -10,11 +10,21 @@ const Mails = () => {
   const [subject, setSubject] = useState("");
   const [to, setTo] = useState("");
   const [date, setDate] = useState("");
+  const [mails, setMails] = useState([]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
   };
-
+  useEffect(() => {
+    fetch("http://localhost:5000/mails/listmail", {
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setMails(data.details);
+        console.log(data.details);
+      });
+  }, []);
   return (
     <main className="jb-main">
       <Pageheader title="Emails" />
@@ -36,7 +46,14 @@ const Mails = () => {
           <div className="listings">
             <div className="listings-job">
               <ul>
-                <Maillist subject={subject} to={to} date={date} />
+                {mails?.map((mail) => (
+                  <Maillist
+                    key={mail._id}
+                    subject={mail.subject}
+                    to={mail.to}
+                    date={mail.date}
+                  />
+                ))}
               </ul>
             </div>
           </div>

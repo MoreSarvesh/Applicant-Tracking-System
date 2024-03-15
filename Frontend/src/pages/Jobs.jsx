@@ -3,6 +3,7 @@ import Joblist from "../components/Joblist.component.jsx";
 import Pageheader from "../components/Pageheader.component.jsx";
 import Modal from "../components/Modal.component.jsx";
 import CreateJob from "../components/CreateJob.component.jsx";
+import { useEffect } from "react";
 
 const Jobs = () => {
   const [showModal, setShowModal] = useState(false);
@@ -12,10 +13,22 @@ const Jobs = () => {
   const [openings, setOpenings] = useState(0);
   const [hired, setHired] = useState(0);
   const [rejected, setRejected] = useState(0);
+  const [jbData, setJbData] = useState([]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
   };
+
+  useEffect(() => {
+    fetch("http://localhost:5000/joblistings/jobs", {
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setJbData(data.details);
+        console.log(data.details);
+      });
+  }, []);
 
   return (
     <main className="jb-main">
@@ -38,13 +51,19 @@ const Jobs = () => {
           <div className="listings">
             <div className="listings-job">
               <ul>
-                <Joblist
-                  title={title}
-                  count={totalCount}
-                  openings={openings}
-                  hired={hired}
-                  rejected={rejected}
-                />
+                {jbData.map((job) => {
+                  return (
+                    <Joblist
+                      key={job._id}
+                      title={job.title}
+                      count={job.totalCount}
+                      openings={job.openings}
+                      hired={job.hired}
+                      rejected={job.rejected}
+                      id={job._id}
+                    />
+                  );
+                })}
               </ul>
             </div>
           </div>

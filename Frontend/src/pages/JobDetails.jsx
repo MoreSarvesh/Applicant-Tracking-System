@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Candidate from "../components/Candidate.component.jsx";
 import Pageheader from "../components/Pageheader.component.jsx";
 
@@ -6,6 +7,22 @@ const JobDetails = ({ title }) => {
   const [name, setName] = useState("");
   const [score, setScore] = useState(0);
   const [status, setStatus] = useState("");
+  const [candidates, setCandidates] = useState([]);
+
+  let location = useLocation();
+
+  useEffect(() => {
+    console.log(location.state.id);
+    fetch(`http://localhost:5000/joblistings/jobs/${location.state.id}`, {
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setCandidates(data.deatails);
+        console.log(data.deatails);
+      });
+  }, []);
+
   return (
     <main className="jb-main">
       <Pageheader title={title} />
@@ -20,8 +37,18 @@ const JobDetails = ({ title }) => {
             </tr>
           </thead>
           <tbody>
-            <Candidate name={name} score={score} status={status} />
-            <Candidate name={name} score={score} status={status} />
+            {candidates.map((candidate) => (
+              <Candidate
+                key={candidate._id}
+                name={candidate.name}
+                score={candidate.resumeScore}
+                status={candidate.status}
+                email={candidate.email}
+                details={candidate.details}
+                note={candidate.note}
+                resume={candidate.resume}
+              />
+            ))}
           </tbody>
         </table>
       </div>

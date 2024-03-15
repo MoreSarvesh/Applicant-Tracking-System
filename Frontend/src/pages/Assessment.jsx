@@ -2,7 +2,7 @@ import Assessmentlist from "../components/Assessmentlist.components.jsx";
 import CrerateAssessment from "../components/CrerateAssessment.component.jsx";
 import Modal from "../components/Modal.component.jsx";
 import Pageheader from "../components/Pageheader.component.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Assessment = () => {
   const [showModal, setShowModal] = useState(false);
@@ -11,6 +11,18 @@ const Assessment = () => {
   const [totalCandidates, setTotalCandidates] = useState(0);
   const [passed, setPassed] = useState(0);
   const [failed, setFailed] = useState(0);
+  const [ass, setAss] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/assessment/getassessments", {
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setAss(data.details);
+        console.log(data.details);
+      });
+  }, []);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -37,12 +49,16 @@ const Assessment = () => {
           <div className="listings">
             <div className="listings-job">
               <ul>
-                <Assessmentlist
-                  title={title}
-                  attemptCount={totalCandidates}
-                  passed={passed}
-                  failed={failed}
-                />
+                {ass.map((assessment) => (
+                  <Assessmentlist
+                    key={assessment._id}
+                    title={assessment.title}
+                    attemptCount={totalCandidates}
+                    passed={passed}
+                    failed={failed}
+                    id={assessment._id}
+                  />
+                ))}
               </ul>
             </div>
           </div>

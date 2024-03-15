@@ -15,7 +15,7 @@ const CrerateAssessment = ({ setShowModal }) => {
     setAnswers(ans.split(","));
     console.log("Generating Assessment");
   };
-  const handleAssessmentSubmission = (e) => {
+  const handleAssessmentSubmission = async (e) => {
     e.preventDefault();
     const newAssessment = {
       title,
@@ -23,8 +23,25 @@ const CrerateAssessment = ({ setShowModal }) => {
       questions,
       answers,
     };
-    console.log("Assesment Generated");
     console.log(newAssessment);
+    const response = await fetch("http://localhost:5000/assessment/create", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newAssessment),
+    });
+
+    if (!response.ok) {
+      const assessmentFailData = await response.json();
+      console.log("Assessment Creation Failed");
+      console.log(assessmentFailData);
+      return;
+    }
+    console.log("New Job Created");
+    const assessmentData = await response.json();
+    console.log(assessmentData);
     setShowModal(false);
   };
 

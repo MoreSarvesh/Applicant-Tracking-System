@@ -2,6 +2,7 @@ const { Assessment } = require("../models/assessment.model.js");
 const {
   Candidateassessment,
 } = require("../models/candidateAssessment.model.js");
+const { Candidate } = require("../models/candidate.model.js");
 const { OpenAI } = require("openai");
 const { User } = require("../models/user.model.js");
 
@@ -140,8 +141,64 @@ correct_answers = [index_of_correct_answer_for_question_1, index_of_correct_answ
   return res.status(201).json({ data: completion.choices[0].message.content });
 };
 
+//retrieve all assessments
+const retrieveAssessments = async (req, res) => {
+  const assessments = await Assessment.find({ recruiter: req.user._id });
+  if (!assessments)
+    return res.status(500).json({ error: "Could not retrieve assessments" });
+
+  return res.status(200).json({
+    message: "Seccessfully retrieved assessments",
+    details: assessments,
+  });
+};
+
+//assessment details
+const retrieveAssessmentsDetails = async (req, res) => {
+  const assessmentAttemptedCandidates = await Candidateassessment.find({
+    assessment_id: req.params.id,
+  });
+  if (!assessmentAttemptedCandidates)
+    return res
+      .status(200)
+      .json({ error: "Could not retrieve asssessment Details" });
+
+  let candidates = [];
+  for (let i = 0; i < assessmentAttemptedCandidates.length; i++) {
+    const candidate = await Candidate.findById(
+      assessmentAttemptedCandidates[i].candidate_id
+    );
+    if (candidate) {
+      const updatedCandidate = {
+        ...candidate._doc,
+        marks: assessmentAttemptedCandidates[i].marks,
+      };
+      candidates = [...candidates, updatedCandidate];
+    } else return res.status(500).json({ error: "Could Not find a Candidate" });
+  }
+
+  return res.status(200).json({ message: "Sucess", details: candidates });
+};
+
+//assessment for candidate
+const candidateAssessment = async (req, res) => {
+  const assessmentDetails = await Assessment.findById(req.params.id);
+  if (!assessmentDetails)
+    return res
+      .status(500)
+      .json({ error: "Could not retrieved Assessment Details" });
+
+  return res.status(200).json({
+    message: "Sucessfully retrieved Assessment Details",
+    details: assessmentDetails.questions,
+  });
+};
+
 module.exports = {
   createNewAssessment,
   handelAssessmentSubmission,
   generateQuestions,
+  retrieveAssessments,
+  retrieveAssessmentsDetails,
+  candidateAssessment,
 };

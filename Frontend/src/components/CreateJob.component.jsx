@@ -15,7 +15,7 @@ const CreateJob = ({ setShowModal }) => {
     e.preventDefault();
     const newField = {
       label: label,
-      type: ftype,
+      inputType: ftype,
       options: options,
     };
     setCustom((prev) => [...prev, newField]);
@@ -24,7 +24,7 @@ const CreateJob = ({ setShowModal }) => {
     console.log(newField);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newJob = {
       title: title,
@@ -33,8 +33,25 @@ const CreateJob = ({ setShowModal }) => {
       applicationForm: custom,
     };
 
-    console.log("New Job Created");
     console.log(newJob);
+    const response = await fetch("http://localhost:5000/joblistings/postjob", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newJob),
+    });
+
+    if (!response.ok) {
+      console.log("Job Creation Failed");
+      const jobFailData = await response.json();
+      console.log(jobFailData);
+      return;
+    }
+    console.log("New Job Created");
+    const jobData = await response.json();
+    console.log(jobData);
     setShowModal(false);
   };
 

@@ -1,11 +1,36 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const handleLoginSubmit = (e) => {
+
+  const navigate = useNavigate();
+
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
+
+    const user = {
+      username,
+      password,
+    };
     console.log("Login Submitted");
+    const response = await fetch("http://localhost:5000/users/login", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+
+    if (!response.ok) {
+      console.log("Login Failed");
+      return navigate("/login");
+    }
+    const userDetails = await response.json();
+    console.log(userDetails);
+    return navigate("/ats");
   };
   return (
     <div className="title login">
