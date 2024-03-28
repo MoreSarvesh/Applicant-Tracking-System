@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Candidate from "../components/Candidate.component.jsx";
 import Pageheader from "../components/Pageheader.component.jsx";
 
@@ -10,6 +10,7 @@ const AssesmentDetails = ({ title }) => {
   const [candidates, setCandidates] = useState([]);
 
   let location = useLocation();
+  let { assessment } = useParams();
 
   useEffect(() => {
     console.log(location.state.id);
@@ -21,13 +22,13 @@ const AssesmentDetails = ({ title }) => {
     )
       .then((res) => res.json())
       .then((data) => {
-        setCandidates(data.deatails);
-        console.log(data.deatails);
+        setCandidates(data.details);
+        console.log(data.details);
       });
   }, []);
   return (
     <main className="jb-main">
-      <Pageheader title={title} />
+      <Pageheader title={assessment} />
       <div className="jb-details-container">
         <table>
           <thead>
@@ -43,7 +44,7 @@ const AssesmentDetails = ({ title }) => {
               <Candidate
                 key={candidate._id}
                 name={candidate.name}
-                score={candidate.resumeScore}
+                score={candidate.marks}
                 status={candidate.status}
                 email={candidate.email}
                 details={candidate.details}

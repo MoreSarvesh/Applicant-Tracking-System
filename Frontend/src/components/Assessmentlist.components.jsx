@@ -4,7 +4,7 @@ const Assessmentlist = ({ title, attemptCount, passed, failed, id }) => {
   return (
     <li>
       <div className="jb-title">
-        <NavLink to="candidate" state={{ id }}>
+        <NavLink className="links" to={title} state={{ id }}>
           {title}
         </NavLink>
         <div className="jb-actions">
@@ -18,6 +18,9 @@ const Assessmentlist = ({ title, attemptCount, passed, failed, id }) => {
           <button>{passed}-Pass</button>
           <button>{failed}-Fail</button>
         </div>
+      </div>
+      <div className="public-links">
+        public-link: http://localhost:5173/candidate/assessment/{id}
       </div>
     </li>
   );

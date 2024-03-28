@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Candidate from "../components/Candidate.component.jsx";
 import Pageheader from "../components/Pageheader.component.jsx";
 
@@ -10,6 +10,7 @@ const JobDetails = ({ title }) => {
   const [candidates, setCandidates] = useState([]);
 
   let location = useLocation();
+  let { job } = useParams();
 
   useEffect(() => {
     console.log(location.state.id);
@@ -25,7 +26,7 @@ const JobDetails = ({ title }) => {
 
   return (
     <main className="jb-main">
-      <Pageheader title={title} />
+      <Pageheader title={job} />
       <div className="jb-details-container">
         <table>
           <thead>

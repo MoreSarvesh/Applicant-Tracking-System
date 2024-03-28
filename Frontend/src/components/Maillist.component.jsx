@@ -4,7 +4,9 @@ const Maillist = ({ subject, to, date }) => {
   return (
     <li>
       <div className="jb-title">
-        <NavLink to="mails">{subject}</NavLink>
+        <NavLink className="links" to="mails">
+          {subject}
+        </NavLink>
         <div className="jb-actions">
           <button>star</button>
           <button>Delete</button>
