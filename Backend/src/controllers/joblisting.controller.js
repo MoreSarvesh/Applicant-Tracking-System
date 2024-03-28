@@ -1,4 +1,5 @@
 const { Job } = require("../models/job.model.js");
+const { Candidate } = require("../models/candidate.model.js");
 
 //create new job
 const createNewJob = async (req, res) => {
@@ -36,4 +37,24 @@ const createNewJob = async (req, res) => {
   }
 };
 
-module.exports = { createNewJob };
+//get all jobs
+const retrieveJobs = async (req, res) => {
+  const jobs = await Job.find({ recruiter: req.user._id });
+  if (!jobs) return res.status(500).json({ error: "Could Not Retrieve Jobs" });
+
+  return res
+    .status(200)
+    .json({ message: "Sucessfully fetched jobs", details: jobs });
+};
+
+//get job details
+const retrieveJobDetails = async (req, res) => {
+  const candiates = await Candidate.find({ appliedJob: req.params.id });
+  if (!candiates)
+    return res.status(500).json({ error: "Could not retrieve candidates" });
+  return res
+    .status(200)
+    .json({ message: "Sucessfully retrived Candidates", deatails: candiates });
+};
+
+module.exports = { createNewJob, retrieveJobs, retrieveJobDetails };

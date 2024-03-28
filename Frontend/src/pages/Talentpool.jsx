@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Talent from "../components/Talent.component.jsx";
 import Pageheader from "../components/Pageheader.component.jsx";
 
 const Talentpool = () => {
+  const [name, setName] = useState("");
+  const [jobProfile, setJobProfile] = useState("");
+  const [email, setEmail] = useState("");
+  const [candidates, setCandidates] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/candidate/tallentpool", {
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setCandidates(data.details);
+        console.log(data.details);
+      });
+  }, []);
+
   return (
     <main className="jb-main">
       <Pageheader title="Talent Pool" />
@@ -11,8 +27,9 @@ const Talentpool = () => {
           <div className="talent-header">Candidate Name</div>
           <div className="talent-details">
             <ul>
-              <Talent detail="sarvesh more" />
-              <Talent detail="sarvesh more" />
+              {candidates?.map((candidate) => (
+                <Talent key={candidate._id} detail={candidate.name} />
+              ))}
             </ul>
           </div>
         </div>
@@ -20,8 +37,9 @@ const Talentpool = () => {
           <div className="talent-header">Job Profile</div>
           <div className="talent-details">
             <ul>
-              <Talent detail="Gameplay developer" />
-              <Talent detail="Gameplay developer" />
+              {candidates?.map((candidate) => (
+                <Talent key={candidate._id} detail={candidate.appliedJob} />
+              ))}
             </ul>
           </div>
         </div>
@@ -29,8 +47,9 @@ const Talentpool = () => {
           <div className="talent-header">Email Address</div>
           <div className="talent-details">
             <ul>
-              <Talent detail="sarveshmore1324@gmail.com" />
-              <Talent detail="sarveshmore1324@gmail.com" />
+              {candidates?.map((candidate) => (
+                <Talent key={candidate._id} detail={candidate.email} />
+              ))}
             </ul>
           </div>
         </div>

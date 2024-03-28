@@ -1,8 +1,12 @@
-const Assessmentlist = ({ title, attemptCount, passed, failed }) => {
+import { NavLink } from "react-router-dom";
+
+const Assessmentlist = ({ title, attemptCount, passed, failed, id }) => {
   return (
     <li>
       <div className="jb-title">
-        {title}
+        <NavLink className="links" to={title} state={{ id }}>
+          {title}
+        </NavLink>
         <div className="jb-actions">
           <button>star</button>
           <button>Delete</button>
@@ -14,6 +18,9 @@ const Assessmentlist = ({ title, attemptCount, passed, failed }) => {
           <button>{passed}-Pass</button>
           <button>{failed}-Fail</button>
         </div>
+      </div>
+      <div className="public-links">
+        public-link: http://localhost:5173/candidate/assessment/{id}
       </div>
     </li>
   );

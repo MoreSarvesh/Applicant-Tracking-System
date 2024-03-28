@@ -76,9 +76,20 @@ const storeCandidate = async (req, res) => {
   //send ackwnoledgement email
 
   return res.status(201).json({
-    msg: `${name} Successfully Applied`,
-    candidate_id: newCandidate._id,
+    message: `${name} Successfully Applied`,
+    details: newCandidate._id,
   });
 };
 
-module.exports = { storeCandidate };
+//retrieve candidate
+const retireveCandiates = async (req, res) => {
+  const candiates = await Candidate.find({ appliedJob: req.params.id });
+  if (!candiates)
+    return res.status(500).json({ error: "Could not retrieve candidates" });
+
+  return res
+    .status(200)
+    .json({ message: "Sucessfully retrived Candidates", deatails: candiates });
+};
+
+module.exports = { storeCandidate, retireveCandiates };

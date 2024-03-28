@@ -1,8 +1,13 @@
-const Joblist = ({ title, count, openings, hired, rejected }) => {
+import { NavLink } from "react-router-dom";
+
+const Joblist = ({ title, count, openings, hired, rejected, id }) => {
+  console.log(title);
   return (
     <li>
       <div className="jb-title">
-        {title}
+        <NavLink className="links" to={title} state={{ id }}>
+          {title.trim()}
+        </NavLink>
         <div className="jb-actions">
           <button>star</button>
           <button>Delete</button>

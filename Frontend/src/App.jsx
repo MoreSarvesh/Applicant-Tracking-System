@@ -14,6 +14,9 @@ import Settings from "./pages/Settings.jsx";
 import Assessment from "./pages/Assessment.jsx";
 import Mails from "./pages/Mails.jsx";
 import Talentpool from "./pages/Talentpool.jsx";
+import JobDetails from "./pages/JobDetails.jsx";
+import AssesmentDetails from "./pages/AssesmentDetails.jsx";
+import CandidateAssessment from "./public pages/CandidateAssessment.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,7 +33,13 @@ const router = createBrowserRouter(
         <Route path="emails" element={<Mails />} />
         <Route path="talentpool" element={<Talentpool />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="jobs/:job" element={<JobDetails title={"Job 1"} />} />
+        <Route path="assessments/:assessment" element={<AssesmentDetails />} />
       </Route>
+      <Route
+        path="candidate/assessment/:id"
+        element={<CandidateAssessment />}
+      />
     </Route>
   )
 );
