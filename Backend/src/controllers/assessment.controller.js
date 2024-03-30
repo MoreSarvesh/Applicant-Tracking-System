@@ -101,16 +101,10 @@ const generateQuestions = async (req, res) => {
   2. Include a mix of factual, conceptual, and application-based questions to assess different levels of understanding.
   3. The options should be plausible choices for each question.
   4. Additionally, provide an array of correct answers corresponding to the index of each question in the response array.
-
-  The response should be in the following JSON object format:
-  question_array = [
-    {"question": "Question 1", "options": ["Option 1", "Option 2", "Option 3", "Option 4"]},
-    {"question": "Question 2", "options": ["Option 1", "Option 2", "Option 3", "Option 4"]},
-    {"question": "Question 3", "options": ["Option 1", "Option 2", "Option 3", "Option 4"]},
-    {"question": "Question 4", "options": ["Option 1", "Option 2", "Option 3", "Option 4"]}
-]
-
-correct_answers = [index_of_correct_answer_for_question_1, index_of_correct_answer_for_question_2, index_of_correct_answer_for_question_3, index_of_correct_answer_for_question_4]
+  
+  Note : Each question should have four options. The response should be array of JSON object in the following format:
+  [{"question": "Question 1", "options": ["Option 1", "Option 2", "Option 3", "Option 4"]}]
+  Also provie a seprate array containing answers corresponding to the index of each question in the response array.
 `;
 
   const user = await User.findById(req.user._id);

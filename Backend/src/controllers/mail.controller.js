@@ -9,7 +9,7 @@ const { User } = require("../models/user.model.js");
 
 //composenew mail
 const composeMail = async (req, res) => {
-  const { user, pwd, to, cc, subject, body } = req.body;
+  const { user, pwd, to, subject, body } = req.body;
   if (!to || !subject || !body)
     return res.status(400).json({ error: "Feilds Cannnot be Empty" });
 
@@ -38,16 +38,7 @@ const composeMail = async (req, res) => {
 //generate email body
 
 const generateBody = async (req, res) => {
-  const {
-    subject,
-    recipient,
-    backgroundContext,
-    purpose,
-    keyPoints,
-    callToAction,
-    attachmentsLinks,
-    contactDetails,
-  } = req.body;
+  const { subject, recipient, purpose, keyPoints, attachmentsLinks } = req.body;
 
   const prompt = `As an HR professional, I need to communicate effectively with candidates via email. Please generate email content with the following information:
   1. Subject: ${subject}

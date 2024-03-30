@@ -129,10 +129,7 @@ const CreateJob = ({ setShowModal }) => {
                 value={ftype}
                 onChange={(e) => {
                   setFtype(e.target.value);
-                  if (
-                    e.target.value === "radio" ||
-                    e.target.value === "checkbox"
-                  ) {
+                  if (e.target.value === "radio") {
                     setShowOptions(true);
                   } else {
                     setShowOptions(false);
@@ -142,7 +139,6 @@ const CreateJob = ({ setShowModal }) => {
                 <option value="text">Text</option>
                 <option value="number">Number</option>
                 <option value="radio">Radio</option>
-                <option value="checkbox">Checkbox</option>
               </select>
             </label>
           </div>

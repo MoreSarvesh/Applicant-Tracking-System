@@ -6,7 +6,7 @@ const Joblist = ({ title, count, openings, hired, rejected, id }) => {
     <li>
       <div className="jb-title">
         <NavLink className="links" to={title} state={{ id }}>
-          {title.trim()}
+          {title}
         </NavLink>
         <div className="jb-actions">
           <button>star</button>
@@ -20,6 +20,9 @@ const Joblist = ({ title, count, openings, hired, rejected, id }) => {
           <button>{hired}-hired</button>
           <button>{rejected}-rejected</button>
         </div>
+      </div>
+      <div className="public-links">
+        public-link: http://localhost:5173/candidate/application/{id}
       </div>
     </li>
   );

@@ -3,20 +3,54 @@ import { useState } from "react";
 const CrerateAssessment = ({ setShowModal }) => {
   const [title, setTitle] = useState("");
   const [totalMarks, setTotalMarks] = useState(0);
-  const [prompt, setPrompt] = useState("");
+  const [totalQuestions, setTotalQuestions] = useState(0);
+  const [skillsToAssess, setSkillsToAssess] = useState("");
+  const [difficultyLevel, setDifficultyLevel] = useState("");
+  const [topicsCovered, setTopicsCovered] = useState("");
+
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
   const [ques, setQues] = useState("");
   const [ans, setAns] = useState("");
 
-  const generateAssessment = (e) => {
+  const [generatedQuestions, setGeneratedQuestions] = useState("");
+  const [disableGeneratedQuestions, setDisableGeneratedQuestions] =
+    useState(true);
+
+  //generate questions
+  const generateAssessment = async (e) => {
+    e.preventDefault();
+    const newQuestions = {
+      skillsToAssess,
+      totalQuestions,
+      topicsCovered,
+      difficultyLevel,
+    };
+    const response = await fetch("http://localhost:5000/assessment/generate", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newQuestions),
+    });
+    if (!response.ok) {
+      const data = await response.json();
+      console.log(" Failed To Assessment Generated");
+      console.log(data.error);
+    }
+    const data = await response.json();
+    console.log(data.data);
+    setGeneratedQuestions(data.data);
+    setDisableGeneratedQuestions(false);
+    console.log(" Assessment Generated");
+  };
+
+  //submit
+  const handleAssessmentSubmission = async (e) => {
     e.preventDefault();
     setQuestions(JSON.parse(ques));
     setAnswers(ans.split(","));
-    console.log("Generating Assessment");
-  };
-  const handleAssessmentSubmission = async (e) => {
-    e.preventDefault();
     const newAssessment = {
       title,
       totalMarks,
@@ -58,6 +92,7 @@ const CrerateAssessment = ({ setShowModal }) => {
             onChange={(e) => {
               setTitle(e.target.value);
             }}
+            placeholder="Enter Title"
           />
         </label>
         <label htmlFor="totalmarks">
@@ -72,17 +107,50 @@ const CrerateAssessment = ({ setShowModal }) => {
             }}
           />
         </label>
-        <label htmlFor="prompt">Assessment Prompt:</label>{" "}
-        <textarea
-          name="prompt"
-          id="prompt"
-          cols="70"
-          rows="5"
-          value={prompt}
-          onChange={(e) => {
-            setPrompt(e.target.value);
-          }}
-        ></textarea>
+
+        <label htmlFor="totalquestions">
+          Total Questions:
+          <input
+            type="number"
+            name="totalquestions"
+            id="totalquestions"
+            value={totalQuestions}
+            onChange={(e) => setTotalQuestions(e.target.value)}
+          />
+        </label>
+        <label htmlFor="skillstoaccess">
+          Skills To Access:
+          <input
+            type="text"
+            name="skillstoaccess"
+            id="skillstoaccess"
+            value={skillsToAssess}
+            onChange={(e) => setSkillsToAssess(e.target.value)}
+            placeholder="What skills to Evaulate"
+          />
+        </label>
+        <label htmlFor="topicscovered">
+          Topics to Cover:
+          <input
+            type="text"
+            name="topicscovered"
+            id="topicscovered"
+            value={topicsCovered}
+            onChange={(e) => setTopicsCovered(e.target.value)}
+            placeholder="What Topics To Cover"
+          />
+        </label>
+        <label htmlFor="difficultyLevel">
+          Difficulty level:
+          <input
+            type="text"
+            name="difficultyLevel"
+            id="difficultyLevel"
+            value={difficultyLevel}
+            onChange={(e) => setDifficultyLevel(e.target.value)}
+            placeholder="Set Difficulty Level"
+          />
+        </label>
         <button
           onClick={(e) => {
             generateAssessment(e);
@@ -90,6 +158,17 @@ const CrerateAssessment = ({ setShowModal }) => {
         >
           Generate Questions
         </button>
+        <label htmlFor="generattedresponse">Generatted Response: </label>
+        <textarea
+          name="generattedresponse"
+          id="generattedresponse"
+          cols="70"
+          rows="5"
+          value={generatedQuestions}
+          onChange={(e) => setGeneratedQuestions(e.target.value)}
+          disabled={disableGeneratedQuestions}
+          placeholder="Put Questions Array in 'Assessment Questions' and Answers Array in 'Assessment Answer'"
+        ></textarea>
         <label htmlFor="questions">Assessment Questions:</label>
         <textarea
           name="questions"

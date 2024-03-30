@@ -10,9 +10,16 @@ const { uploadOnCloudinary } = require("../utils/cloudinary.js");
 const storeCandidate = async (req, res) => {
   const { jobid } = req.query;
   const { name, email, details } = req.body;
-  //console.log(details);
+  //console.log(name, email, details);
   const candidateDetails = JSON.parse(details);
   //console.log(candidateDetails);
+  const candidateDetailsEntriesArray = Object.entries(candidateDetails);
+  const cDetails = candidateDetailsEntriesArray.map((details) => {
+    return {
+      label: details[0],
+      value: details[1],
+    };
+  });
 
   const candidateExists = await Candidate.findOne({
     $and: [{ appliedJob: jobid }, { email }],
@@ -63,7 +70,7 @@ const storeCandidate = async (req, res) => {
     email: email,
     resume: resumeURL,
     resumeScore: score,
-    details: candidateDetails,
+    details: cDetails,
   });
 
   if (!newCandidate) {
@@ -77,7 +84,7 @@ const storeCandidate = async (req, res) => {
 
   return res.status(201).json({
     message: `${name} Successfully Applied`,
-    details: newCandidate._id,
+    candidateId: newCandidate._id,
   });
 };
 

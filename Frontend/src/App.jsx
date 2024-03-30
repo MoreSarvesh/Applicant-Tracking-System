@@ -17,6 +17,7 @@ import Talentpool from "./pages/Talentpool.jsx";
 import JobDetails from "./pages/JobDetails.jsx";
 import AssesmentDetails from "./pages/AssesmentDetails.jsx";
 import CandidateAssessment from "./public pages/CandidateAssessment.jsx";
+import CandidateApplication from "./public pages/CandidateApplication.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -39,6 +40,10 @@ const router = createBrowserRouter(
       <Route
         path="candidate/assessment/:id"
         element={<CandidateAssessment />}
+      />
+      <Route
+        path="candidate/application/:id"
+        element={<CandidateApplication />}
       />
     </Route>
   )

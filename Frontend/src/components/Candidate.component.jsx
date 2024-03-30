@@ -5,6 +5,7 @@ const Candidate = ({ name, score, status, email, details, note, resume }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [candidateStatus, setCandidateStatus] = useState(status);
 
+  console.log(details);
   const updateCandidateStatus = (e) => {
     e.preventDefault();
     setCandidateStatus(e.target.value);

@@ -1,6 +1,7 @@
 import React from "react";
 
 const CandidateDetails = ({ email, details, note, resume }) => {
+  console.log("details", details);
   return (
     <tr className="candidate-details-row">
       <td colSpan="4">

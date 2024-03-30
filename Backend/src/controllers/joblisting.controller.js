@@ -57,4 +57,20 @@ const retrieveJobDetails = async (req, res) => {
     .json({ message: "Sucessfully retrived Candidates", deatails: candiates });
 };
 
-module.exports = { createNewJob, retrieveJobs, retrieveJobDetails };
+//get job application details
+const candidateApplicationForm = async (req, res) => {
+  const job = await Job.findById(req.query.jid);
+  if (!job) return res.status(500).json({ error: "Could Not Find Job!" });
+  return res.status(200).json({
+    message: "Sucessfully Retrieved application Form",
+    details: job.applicationForm,
+    title: job.title,
+  });
+};
+
+module.exports = {
+  createNewJob,
+  retrieveJobs,
+  retrieveJobDetails,
+  candidateApplicationForm,
+};

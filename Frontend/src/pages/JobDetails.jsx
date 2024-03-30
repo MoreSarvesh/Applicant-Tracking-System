@@ -20,7 +20,7 @@ const JobDetails = ({ title }) => {
       .then((res) => res.json())
       .then((data) => {
         setCandidates(data.deatails);
-        console.log(data.deatails);
+        console.log("deetails", data.deatails);
       });
   }, []);
 
@@ -38,18 +38,20 @@ const JobDetails = ({ title }) => {
             </tr>
           </thead>
           <tbody>
-            {candidates.map((candidate) => (
-              <Candidate
-                key={candidate._id}
-                name={candidate.name}
-                score={candidate.resumeScore}
-                status={candidate.status}
-                email={candidate.email}
-                details={candidate.details}
-                note={candidate.note}
-                resume={candidate.resume}
-              />
-            ))}
+            {candidates.map((candidate) => {
+              return (
+                <Candidate
+                  key={candidate._id}
+                  name={candidate.name}
+                  score={candidate.resumeScore}
+                  status={candidate.status}
+                  email={candidate.email}
+                  details={candidate.details}
+                  note={candidate.note}
+                  resume={candidate.resume}
+                />
+              );
+            })}
           </tbody>
         </table>
       </div>
