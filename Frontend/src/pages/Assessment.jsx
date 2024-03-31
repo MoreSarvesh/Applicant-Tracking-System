@@ -53,10 +53,11 @@ const Assessment = () => {
                   <Assessmentlist
                     key={assessment._id}
                     title={assessment.title}
-                    attemptCount={totalCandidates}
+                    attemptCount={assessment.count}
                     passed={passed}
                     failed={failed}
                     id={assessment._id}
+                    favourite={assessment.favourite}
                   />
                 ))}
               </ul>

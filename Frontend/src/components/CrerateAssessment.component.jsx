@@ -20,7 +20,7 @@ const CrerateAssessment = ({ setShowModal }) => {
   //generate questions
   const generateAssessment = async (e) => {
     e.preventDefault();
-    const newQuestions = {
+    /*     const newQuestions = {
       skillsToAssess,
       totalQuestions,
       topicsCovered,
@@ -42,15 +42,15 @@ const CrerateAssessment = ({ setShowModal }) => {
     const data = await response.json();
     console.log(data.data);
     setGeneratedQuestions(data.data);
-    setDisableGeneratedQuestions(false);
+    setDisableGeneratedQuestions(false); */
+    setQuestions(JSON.parse(ques));
+    setAnswers(ans.split(","));
     console.log(" Assessment Generated");
   };
 
   //submit
   const handleAssessmentSubmission = async (e) => {
     e.preventDefault();
-    setQuestions(JSON.parse(ques));
-    setAnswers(ans.split(","));
     const newAssessment = {
       title,
       totalMarks,

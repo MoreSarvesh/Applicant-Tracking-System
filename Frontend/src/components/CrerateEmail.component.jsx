@@ -11,11 +11,12 @@ const CrerateEmail = ({ setShowModal }) => {
   const [to, setTo] = useState([]);
   const [toEmail, setToEmail] = useState("");
 
+  //mail submisssion
   const handleEmailSubmission = async (e) => {
     e.preventDefault();
     const newEmail = {
-      user,
-      pwd,
+      user: sender,
+      pwd: password,
       subject,
       body,
       to,
@@ -42,12 +43,14 @@ const CrerateEmail = ({ setShowModal }) => {
     setShowModal(false);
   };
 
+  //receiver mailaddress
   const addRecieverMail = (e) => {
     e.preventDefault();
     setTo((prev) => [...prev, toEmail]);
     setToEmail("");
   };
 
+  //generate body
   const generateAssessment = async (e) => {
     e.preventDefault();
     //set email body

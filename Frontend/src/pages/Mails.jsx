@@ -51,7 +51,7 @@ const Mails = () => {
                     key={mail._id}
                     subject={mail.subject}
                     to={mail.to}
-                    date={mail.date}
+                    date={mail.createdAt.toString()}
                   />
                 ))}
               </ul>

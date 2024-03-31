@@ -70,6 +70,8 @@ const handelAssessmentSubmission = async (req, res) => {
     if (assessment.answers[i] === answers[i]) marks++;
   }
 
+  marks *= assessment.totalMarks / assessment.answers.length;
+
   const newCandidateAttempt = await Candidateassessment.create({
     assessment_id,
     candidate_id,
@@ -141,9 +143,22 @@ const retrieveAssessments = async (req, res) => {
   if (!assessments)
     return res.status(500).json({ error: "Could not retrieve assessments" });
 
+  let assessmentArray = [];
+  for (let i = 0; i < assessments.length; i++) {
+    const count = await Candidateassessment.find({
+      assessment_id: assessments[i]._id,
+    });
+    assessmentArray.push({ ...assessments[i]._doc, count: count.length });
+  }
+  let sortedAssessment = assessmentArray.sort((a, b) => {
+    if (a.favourite && b.favourite) return 0;
+    if (a.favourite) return -1;
+    else return 1;
+  });
+
   return res.status(200).json({
     message: "Seccessfully retrieved assessments",
-    details: assessments,
+    details: sortedAssessment,
   });
 };
 
@@ -188,6 +203,31 @@ const candidateAssessment = async (req, res) => {
   });
 };
 
+//update favourite
+const updateAssessmentFavourite = async (req, res) => {
+  const { id, favourite } = req.body;
+  /* console.log(favourite); */
+  const assessment = await Assessment.findById(id);
+  if (!assessment)
+    return res.status(500).json({ error: "Could not find assessment" });
+
+  assessment.favourite = favourite;
+  try {
+    {
+      const updatedAssessment = await assessment.save();
+      return res.status(201).json({
+        message: `${id} Updated successfully`,
+        details: updatedAssessment,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ error: `${id} could not be Updated `, details: error });
+  }
+};
+
 module.exports = {
   createNewAssessment,
   handelAssessmentSubmission,
@@ -195,4 +235,5 @@ module.exports = {
   retrieveAssessments,
   retrieveAssessmentsDetails,
   candidateAssessment,
+  updateAssessmentFavourite,
 };

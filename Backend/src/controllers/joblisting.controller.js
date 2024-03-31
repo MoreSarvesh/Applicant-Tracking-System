@@ -41,10 +41,33 @@ const createNewJob = async (req, res) => {
 const retrieveJobs = async (req, res) => {
   const jobs = await Job.find({ recruiter: req.user._id });
   if (!jobs) return res.status(500).json({ error: "Could Not Retrieve Jobs" });
+  let jobsData = [];
 
+  for (let i = 0; i < jobs.length; i++) {
+    const candidates = await Candidate.find({ appliedJob: jobs[i]._id });
+    const selectedCandidates = candidates.filter(
+      (candiate) => candiate.status === "HIRED"
+    );
+    const rejectedCandiddates = candidates.filter(
+      (candidate) => candidate.status === "REJECTED"
+    );
+    const data = {
+      ...jobs[i]._doc,
+      totalCount: candidates.length,
+      hired: selectedCandidates.length,
+      rejected: rejectedCandiddates.length,
+    };
+    jobsData.push(data);
+  }
+
+  sortedjobsData = jobsData.sort((a, b) => {
+    if (a.favourite && b.favourite) return 0;
+    if (a.favourite) return -1;
+    else 1;
+  });
   return res
     .status(200)
-    .json({ message: "Sucessfully fetched jobs", details: jobs });
+    .json({ message: "Sucessfully fetched jobs", details: sortedjobsData });
 };
 
 //get job details
@@ -68,9 +91,33 @@ const candidateApplicationForm = async (req, res) => {
   });
 };
 
+//update favourite
+const updateFavourite = async (req, res) => {
+  const { jid, favourite } = req.body;
+  /* console.log(favourite); */
+  const job = await Job.findById(jid);
+  if (!job) return res.status(500).json({ error: "Could not find job" });
+
+  job.favourite = favourite;
+  try {
+    {
+      const updatedJob = await job.save();
+      return res
+        .status(201)
+        .json({ message: `${jid} Updated successfully`, details: updatedJob });
+    }
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ error: `${jid} could not be Updated `, details: error });
+  }
+};
+
 module.exports = {
   createNewJob,
   retrieveJobs,
   retrieveJobDetails,
   candidateApplicationForm,
+  updateFavourite,
 };

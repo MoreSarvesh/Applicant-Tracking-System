@@ -61,6 +61,7 @@ const Jobs = () => {
                       hired={job.hired}
                       rejected={job.rejected}
                       id={job._id}
+                      favourite={job.favourite}
                     />
                   );
                 })}
