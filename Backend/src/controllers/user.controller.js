@@ -91,12 +91,11 @@ const logoutUser = async (req, res) => {
     .clearCookie("refreshToken", { httpOnly: true })
     .clearCookie("accessToken", { httpOnly: true })
     .json({
-      message: `${req.user.username} loggedOut Successfully`,
+      message: `${req.user.username} logged-Out Successfully`,
     });
 };
 
 //refresh access token
-
 const refreshAccessToken = async (req, res) => {
   const token =
     req.cookies?.refreshToken ||

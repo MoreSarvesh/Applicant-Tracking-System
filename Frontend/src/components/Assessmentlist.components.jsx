@@ -1,15 +1,11 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const Assessmentlist = ({
-  title,
-  attemptCount,
-  passed,
-  failed,
-  id,
-  favourite,
-}) => {
+const Assessmentlist = ({ title, attemptCount, id, favourite }) => {
   const [fav, setFav] = useState(favourite);
+
+  //fav
   const updateAssessmentFav = async () => {
     setFav((prev) => !prev);
     const obj = {
@@ -35,6 +31,36 @@ const Assessmentlist = ({
     const assessmentData = await response.json();
     console.log(assessmentData);
   };
+
+  //delete
+  const handleDelete = async () => {
+    const response = toast.promise(
+      fetch("http://localhost:5000/assessment/delete", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      }),
+      {
+        pending: "Deleting",
+        success: "Deleted successfully",
+        error: "Something went wrong!",
+      }
+    );
+
+    if (!response.ok) {
+      console.log("Assessment deletion Failed");
+      const assessmentDeletionlData = await response.json();
+      console.log(assessmentDeletionlData);
+      return toast.error(assessmentDeletionlData.error);
+    }
+    console.log("Assessment Delete");
+    const assessmentData = await response.json();
+    console.log(assessmentData);
+    return toast.success(assessmentData.message);
+  };
   return (
     <li>
       <div className="jb-title">
@@ -45,7 +71,7 @@ const Assessmentlist = ({
           <button onClick={updateAssessmentFav}>
             {fav ? "true" : "false"}
           </button>
-          <button>Delete</button>
+          <button onClick={handleDelete}>Delete</button>
         </div>
       </div>
       <div className="jb-info">{attemptCount} Candidates</div>

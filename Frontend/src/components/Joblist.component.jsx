@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Joblist = ({
   title,
@@ -43,7 +44,29 @@ const Joblist = ({
   };
 
   //delete a job
-  const deleteJob = () => {};
+  const deleteJob = async () => {
+    const response = await toast.promise(
+      fetch("http://localhost:5000/joblistings/delete", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      }),
+      { pending: "Deleting..", success: "Deleted Successfully", error: "Error" }
+    );
+    if (!response.ok) {
+      console.log("Job Deletion Failed");
+      const jobDeleteData = await response.json();
+      console.log(jobDeleteData);
+      return toast.error(jobDeleteData.error);
+    }
+    console.log("Job Deleted");
+    const jobData = await response.json();
+    console.log(jobData);
+    return toast.success(jobData.message);
+  };
   return (
     <li>
       <div className="jb-title">

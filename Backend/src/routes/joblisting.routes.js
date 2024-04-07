@@ -5,11 +5,13 @@ const {
   retrieveJobs,
   retrieveJobDetails,
   updateFavourite,
+  deleteJob,
 } = require("../controllers/joblisting.controller.js");
 const router = Router();
 
 router.route("/postjob").post(verifyJWT, createNewJob);
 router.route("/favourite").post(verifyJWT, updateFavourite);
+router.route("/delete").post(verifyJWT, deleteJob);
 router.route("/jobs").get(verifyJWT, retrieveJobs);
 router.route("/jobs/:id").get(verifyJWT, retrieveJobDetails);
 

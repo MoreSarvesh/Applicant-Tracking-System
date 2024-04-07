@@ -64,6 +64,7 @@ const Mails = () => {
           <CrerateEmail setShowModal={setShowModal} />
         </Modal>
       )}
+      {mails.length == 0 ? <div className="no">No Mails</div> : ""}
     </main>
   );
 };

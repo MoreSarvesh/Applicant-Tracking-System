@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const CrerateAssessment = ({ setShowModal }) => {
   const [title, setTitle] = useState("");
@@ -26,14 +27,18 @@ const CrerateAssessment = ({ setShowModal }) => {
       topicsCovered,
       difficultyLevel,
     };
-    const response = await fetch("http://localhost:5000/assessment/generate", {
+    const response = await toast.promise(fetch("http://localhost:5000/assessment/generate", {
       method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newQuestions),
-    });
+    }), {
+    pending: "Waiting",
+    success: "Success",
+    error: "Error",
+  });
     if (!response.ok) {
       const data = await response.json();
       console.log(" Failed To Assessment Generated");
@@ -45,7 +50,8 @@ const CrerateAssessment = ({ setShowModal }) => {
     setDisableGeneratedQuestions(false); */
     setQuestions(JSON.parse(ques));
     setAnswers(ans.split(","));
-    console.log(" Assessment Generated");
+    console.log("Assessment Generated");
+    return toast.success("Assessment Generated");
   };
 
   //submit
@@ -58,25 +64,33 @@ const CrerateAssessment = ({ setShowModal }) => {
       answers,
     };
     console.log(newAssessment);
-    const response = await fetch("http://localhost:5000/assessment/create", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newAssessment),
-    });
+    const response = await toast.promise(
+      fetch("http://localhost:5000/assessment/create", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newAssessment),
+      }),
+      {
+        pending: "Creating",
+        success: "Successfully Created ",
+        error: "Error",
+      }
+    );
 
     if (!response.ok) {
       const assessmentFailData = await response.json();
       console.log("Assessment Creation Failed");
       console.log(assessmentFailData);
-      return;
+      return toast.error(assessmentFailData.error);
     }
     console.log("New Job Created");
     const assessmentData = await response.json();
     console.log(assessmentData);
     setShowModal(false);
+    return toast.success(assessmentData.message);
   };
 
   return (
@@ -93,6 +107,7 @@ const CrerateAssessment = ({ setShowModal }) => {
               setTitle(e.target.value);
             }}
             placeholder="Enter Title"
+            required
           />
         </label>
         <label htmlFor="totalmarks">
@@ -105,6 +120,7 @@ const CrerateAssessment = ({ setShowModal }) => {
             onChange={(e) => {
               setTotalMarks(e.target.value);
             }}
+            required
           />
         </label>
 
@@ -116,6 +132,7 @@ const CrerateAssessment = ({ setShowModal }) => {
             id="totalquestions"
             value={totalQuestions}
             onChange={(e) => setTotalQuestions(e.target.value)}
+            required
           />
         </label>
         <label htmlFor="skillstoaccess">
@@ -127,6 +144,7 @@ const CrerateAssessment = ({ setShowModal }) => {
             value={skillsToAssess}
             onChange={(e) => setSkillsToAssess(e.target.value)}
             placeholder="What skills to Evaulate"
+            required
           />
         </label>
         <label htmlFor="topicscovered">
@@ -138,6 +156,7 @@ const CrerateAssessment = ({ setShowModal }) => {
             value={topicsCovered}
             onChange={(e) => setTopicsCovered(e.target.value)}
             placeholder="What Topics To Cover"
+            required
           />
         </label>
         <label htmlFor="difficultyLevel">
@@ -149,6 +168,7 @@ const CrerateAssessment = ({ setShowModal }) => {
             value={difficultyLevel}
             onChange={(e) => setDifficultyLevel(e.target.value)}
             placeholder="Set Difficulty Level"
+            required
           />
         </label>
         <button
@@ -168,6 +188,7 @@ const CrerateAssessment = ({ setShowModal }) => {
           onChange={(e) => setGeneratedQuestions(e.target.value)}
           disabled={disableGeneratedQuestions}
           placeholder="Put Questions Array in 'Assessment Questions' and Answers Array in 'Assessment Answer'"
+          required
         ></textarea>
         <label htmlFor="questions">Assessment Questions:</label>
         <textarea
@@ -179,6 +200,7 @@ const CrerateAssessment = ({ setShowModal }) => {
           onChange={(e) => {
             setQues(e.target.value);
           }}
+          required
         ></textarea>
         <label htmlFor="answers">
           Assessment Answers:
@@ -190,6 +212,7 @@ const CrerateAssessment = ({ setShowModal }) => {
             onChange={(e) => {
               setAns(e.target.value);
             }}
+            required
           />
         </label>
         <button type="submit">Create Assessment</button>

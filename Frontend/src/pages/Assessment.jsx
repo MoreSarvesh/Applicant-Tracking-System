@@ -70,6 +70,7 @@ const Assessment = () => {
           <CrerateAssessment setShowModal={setShowModal} />
         </Modal>
       )}
+      {ass.length == 0 ? <div className="no">No Assessment</div> : ""}
     </main>
   );
 };

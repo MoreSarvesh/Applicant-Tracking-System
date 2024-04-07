@@ -114,10 +114,21 @@ const updateFavourite = async (req, res) => {
   }
 };
 
+//delete a job
+const deleteJob = async (req, res) => {
+  const { id } = req.body;
+  const response = await Job.deleteOne({ _id: id });
+  if (!response)
+    return res.status(500).json({ error: "Something Went Wrong!" });
+
+  return res.status(200).json({ message: "Job Successfully Deleted" });
+};
+
 module.exports = {
   createNewJob,
   retrieveJobs,
   retrieveJobDetails,
   candidateApplicationForm,
   updateFavourite,
+  deleteJob,
 };

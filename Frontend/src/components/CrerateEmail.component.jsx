@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const CrerateEmail = ({ setShowModal }) => {
   const [sender, setSender] = useState("");
@@ -22,25 +23,33 @@ const CrerateEmail = ({ setShowModal }) => {
       to,
     };
     console.log(newEmail);
-    const response = await fetch("http://localhost:5000/mails/compose", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newEmail),
-    });
+    const response = await toast.promise(
+      fetch("http://localhost:5000/mails/compose", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newEmail),
+      }),
+      {
+        pending: "Sending Email",
+        success: "Email Sent",
+        error: "Error",
+      }
+    );
 
     if (!response.ok) {
       console.log("Email Sending Failed");
       const emailFailData = await response.json();
       console.log(emailFailData);
-      return;
+      return toast.error(emailFailData.error);
     }
     console.log("New email Created");
     const emailData = await response.json();
     console.log(emailData);
     setShowModal(false);
+    return toast.success(emailData.message);
   };
 
   //receiver mailaddress
@@ -62,25 +71,33 @@ const CrerateEmail = ({ setShowModal }) => {
       attachmentsLinks,
     };
     console.log(prompt);
-    const response = await fetch("http://localhost:5000/mails/generate", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(prompt),
-    });
+    const response = await toast.promise(
+      fetch("http://localhost:5000/mails/generate", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(prompt),
+      }),
+      {
+        pending: "Generating",
+        success: "Successfully Generatted",
+        error: "Error",
+      }
+    );
 
     if (!response.ok) {
       console.log("Email Creation Failed");
       const emailFailData = await response.json();
       console.log(emailFailData);
-      return;
+      return toast.error(emailFailData.error);
     }
     console.log("New Body Created");
     const emailBodyData = await response.json();
     console.log(emailBodyData);
     setBody(emailBodyData.data);
+    return toast.success(emailBodyData.message);
   };
 
   return (
@@ -96,6 +113,7 @@ const CrerateEmail = ({ setShowModal }) => {
             onChange={(e) => {
               setSender(e.target.value);
             }}
+            required
           />
         </label>
         <label htmlFor="password">
@@ -108,6 +126,7 @@ const CrerateEmail = ({ setShowModal }) => {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
+            required
           />
         </label>
         <div className="reciever">
@@ -136,6 +155,7 @@ const CrerateEmail = ({ setShowModal }) => {
           onChange={(e) => {
             setSubject(e.target.value);
           }}
+          required
         ></textarea>
         <label htmlFor="purpose">
           Purpose:
@@ -145,6 +165,7 @@ const CrerateEmail = ({ setShowModal }) => {
             id="purpose"
             value={purpose}
             onChange={(e) => setPurpose(e.target.value)}
+            required
           />
         </label>
         <label htmlFor="keypoints">
@@ -155,6 +176,7 @@ const CrerateEmail = ({ setShowModal }) => {
             id="keypoints"
             value={keyPoints}
             onChange={(e) => setKeyPoints(e.target.value)}
+            required
           />
         </label>
         <label htmlFor="attachmentslink">
@@ -178,6 +200,7 @@ const CrerateEmail = ({ setShowModal }) => {
           onChange={(e) => {
             setBody(e.target.value);
           }}
+          required
         ></textarea>
         <button type="submit">Compose Mail</button>
       </form>

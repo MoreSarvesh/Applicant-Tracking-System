@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const CreateJob = ({ setShowModal }) => {
   const [title, setTitle] = useState("");
@@ -34,24 +35,32 @@ const CreateJob = ({ setShowModal }) => {
     };
 
     console.log(newJob);
-    const response = await fetch("http://localhost:5000/joblistings/postjob", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newJob),
-    });
+    const response = await toast.promise(
+      fetch("http://localhost:5000/joblistings/postjob", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newJob),
+      }),
+      {
+        pending: "Submitting Request",
+        success: "Job created Successfully",
+        error: "Error",
+      }
+    );
 
     if (!response.ok) {
       console.log("Job Creation Failed");
       const jobFailData = await response.json();
       console.log(jobFailData);
-      return;
+      return toast.error(jobFailData.error);
     }
     console.log("New Job Created");
     const jobData = await response.json();
     console.log(jobData);
+    toast.success(jobData.message);
     setShowModal(false);
   };
 
@@ -73,6 +82,7 @@ const CreateJob = ({ setShowModal }) => {
             onChange={(e) => {
               setTitle(e.target.value);
             }}
+            required
           />
         </label>
         <label htmlFor="openings">
@@ -85,6 +95,7 @@ const CreateJob = ({ setShowModal }) => {
             onChange={(e) => {
               setOpenings(e.target.value);
             }}
+            required
           />
         </label>
 
@@ -97,6 +108,7 @@ const CreateJob = ({ setShowModal }) => {
           onChange={(e) => {
             setDescription(e.target.value);
           }}
+          required
         ></textarea>
         <fieldset>
           <legend>Candidate Application Fields</legend>
@@ -118,6 +130,7 @@ const CreateJob = ({ setShowModal }) => {
               onChange={(e) => {
                 setlabel(e.target.value);
               }}
+              required
             />
           </label>
           <div>

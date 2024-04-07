@@ -106,7 +106,7 @@ const generateQuestions = async (req, res) => {
   
   Note : Each question should have four options. The response should be array of JSON object in the following format:
   [{"question": "Question 1", "options": ["Option 1", "Option 2", "Option 3", "Option 4"]}]
-  Also provie a seprate array containing answers corresponding to the index of each question in the response array.
+  Also provide a separate array containing answers of each question in the response array.
 `;
 
   const user = await User.findById(req.user._id);
@@ -228,6 +228,18 @@ const updateAssessmentFavourite = async (req, res) => {
   }
 };
 
+//deelete assessment
+const deleteAssessment = async (req, res) => {
+  const { id } = req.body;
+  const response = await Assessment.deleteOne({ _id: id });
+  if (!response) {
+    console.log("Error");
+    return res.status(500).json({ error: "Something Went Wrong" });
+  }
+
+  return res.status(200).json({ message: "Assessment deleted successfully" });
+};
+
 module.exports = {
   createNewAssessment,
   handelAssessmentSubmission,
@@ -236,4 +248,5 @@ module.exports = {
   retrieveAssessmentsDetails,
   candidateAssessment,
   updateAssessmentFavourite,
+  deleteAssessment,
 };

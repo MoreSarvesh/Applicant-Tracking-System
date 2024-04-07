@@ -242,7 +242,16 @@ td {
   width: 100%;
   height: 50px;
   border-bottom: 2px solid black;
-  margin-bottom: 15px;
+  margin: 15px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  padding-inline: 10px;
+}
+
+.jb-header button {
+  width: 70px;
+  height: 35px;
 }
 
 .jb-content {
@@ -522,4 +531,52 @@ td {
 .candidate-application-form button {
   width: 8rem;
   height: 2rem;
+}
+
+/* error component */
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f8f9fa; /* Light gray background */
+}
+
+.error-content {
+  text-align: center;
+}
+
+.error-heading {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #dc3545; /* Red color for the heading */
+}
+
+.error-message {
+  font-size: 18px;
+  margin-bottom: 30px;
+  color: #6c757d; /* Dark gray color for the message */
+}
+
+.error-link {
+  text-decoration: none;
+  color: #007bff; /* Blue color for the link */
+  font-size: 16px;
+  padding: 10px 20px;
+  border: 2px solid #007bff; /* Blue border */
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.error-link:hover {
+  background-color: #007bff; /* Blue background on hover */
+  color: #fff; /* White color on hover */
+}
+
+.no {
+  text-align: center;
+  font-size: 2rem;
+  padding: 1rem;
+  color: #6c757d;
+  font-weight: bold;
 }

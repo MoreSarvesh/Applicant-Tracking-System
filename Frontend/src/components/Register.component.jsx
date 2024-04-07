@@ -40,6 +40,7 @@ const Register = () => {
             className="username-input"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            required
           />
         </label>
         <label htmlFor="password" className="password-label">
@@ -50,6 +51,7 @@ const Register = () => {
             className="password-input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </label>
         <label htmlFor="api" className="api-label">
@@ -60,6 +62,7 @@ const Register = () => {
             className="api-input"
             value={apiKey}
             onChange={(e) => setApiKey(e.target.value)}
+            required
           />
         </label>
         <button type="submit" className="reg-btn">

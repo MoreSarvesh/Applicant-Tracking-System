@@ -75,6 +75,7 @@ const Jobs = () => {
           <CreateJob setShowModal={setShowModal} />
         </Modal>
       )}
+      {jbData.length == 0 ? <div className="no">No Job</div> : ""}
     </main>
   );
 };

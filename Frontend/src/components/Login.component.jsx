@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -26,10 +27,11 @@ const Login = () => {
 
     if (!response.ok) {
       console.log("Login Failed");
-      return navigate("/login");
+      return toast.error("Invalid Credentials!");
     }
     const userDetails = await response.json();
     console.log(userDetails);
+    toast.success(`Welcome ${userDetails.userInfo.username}`);
     return navigate("/ats");
   };
   return (
@@ -44,6 +46,7 @@ const Login = () => {
             className="username-input"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            required
           />
         </label>
         <label htmlFor="password" className="password-label">
@@ -54,6 +57,7 @@ const Login = () => {
             className="password-input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </label>
         <button type="submit" className="login-btn">

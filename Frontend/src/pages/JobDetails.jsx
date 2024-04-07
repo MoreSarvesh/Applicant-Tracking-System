@@ -54,6 +54,7 @@ const JobDetails = ({ title }) => {
             })}
           </tbody>
         </table>
+        {candidates.length == 0 ? <div className="no">No Candidates</div> : ""}
       </div>
     </main>
   );
