@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration: none;
 }
 
 body {
@@ -10,20 +11,6 @@ body {
 
 li {
   list-style: none;
-}
-
-/* links */
-.links {
-  color: black;
-  text-decoration: none;
-}
-
-.links:hover {
-  color: peru;
-}
-
-.public-links {
-  padding-inline: 1rem;
 }
 
 /* Home Page */
@@ -49,100 +36,290 @@ li {
 .title h1 {
   font-size: 5rem;
   letter-spacing: 0.3rem;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .title h3 {
   font-size: 2.5rem;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .title p {
   font-size: 1.5rem;
   margin-top: 2rem;
   margin-bottom: 2rem;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .title .btn {
-  width: 120px;
-  height: 40px;
-  margin-right: 5em;
+  cursor: pointer;
+  position: relative;
+  padding: 4px 20px;
+  background: white;
+  font-size: 25px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  transition: all 1s;
+  &:after,
+  &:before {
+    content: " ";
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    border: 0px solid #fff;
+    transition: all 1s;
+  }
+  &:after {
+    top: -1px;
+    left: -1px;
+    border-top: 5px solid black;
+    border-left: 5px solid black;
+  }
+  &:before {
+    bottom: -1px;
+    right: -1px;
+    border-bottom: 5px solid black;
+    border-right: 5px solid black;
+  }
+  &:hover {
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    background: rgba(255, 255, 255, 0.5);
+    color: rgb(0, 0, 0);
+    &:before,
+    &:after {
+      width: 100%;
+      height: 100%;
+      border-color: rgb(0, 0, 0);
+    }
+  }
 }
 
 /* Login Page */
 
+/* General Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+}
+
+/* Login Section */
 .login {
-  flex-grow: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  flex-flow: column nowrap;
+  justify-content: center;
+  height: 100vh; /* Full viewport height */
 }
 
 .login h1 {
-  font-size: 3rem;
-  letter-spacing: normal;
-  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #333; /* Dark text color */
 }
 
 .login-form {
-  display: flex;
-  flex-flow: column nowrap;
+  width: 300px;
+  margin: 20px;
 }
 
 .login-form .login-btn {
-  margin-top: 2rem;
-  width: 250px;
-  height: 50px;
+  margin-right: 1em;
+  margin-left: 2.1em;
+  margin-top: 0.5em;
+  cursor: pointer;
+  position: relative;
+  padding: 4px 24px;
+  background: white;
+  font-size: 25px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 10px;
+  transition: all 1s;
+  &:after,
+  &:before {
+    content: " ";
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    border: 0px solid #fff;
+    transition: all 1s;
+  }
+  &:after {
+    top: -1px;
+    left: -1px;
+    border-top: 5px solid black;
+    border-left: 5px solid black;
+  }
+  &:before {
+    bottom: -1px;
+    right: -1px;
+    border-bottom: 5px solid black;
+    border-right: 5px solid black;
+  }
+  &:hover {
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    background: rgba(255, 255, 255, 0.5);
+    color: rgb(0, 0, 0);
+    &:before,
+    &:after {
+      width: 100%;
+      height: 100%;
+      border-color: rgb(0, 0, 0);
+    }
+  }
+}
+
+.login-form .login-btn:hover {
+  background-color: #f5f7f9;
 }
 
 .login-form input {
-  width: 250px;
-  height: 50px;
-  display: block;
-  border: none;
-  outline: none;
-  border-bottom: 2px solid black;
-  padding: 1em;
-  margin: 1em 0;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 30px;
+  padding: 10px;
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 5px;
   font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.login-form input:focus {
+  border-color: #0d0d0e; /* Blue border color on focus */
+  outline: none;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .login {
+    padding: 20px;
+  }
+
+  .login h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .login-form {
+    width: 100%;
+  }
 }
 
 /* registration Page */
+/* General Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9; /* Light gray background */
+}
 
+/* Registration Section */
 .reg {
-  flex-grow: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  flex-flow: column nowrap;
+  justify-content: center;
+  min-height: 100vh; /* Minimum viewport height */
+  padding: 20px;
 }
 
 .reg h1 {
-  font-size: 3rem;
-  letter-spacing: normal;
-  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #333; /* Dark text color */
 }
 
 .reg-form {
-  display: flex;
-  flex-flow: column nowrap;
+  width: 300px;
+  margin-top: 20px;
 }
 
 .reg-form .reg-btn {
-  margin-top: 2rem;
-  width: 250px;
-  height: 50px;
+  margin-right: 1em;
+  margin-left: 2.1em;
+  margin-top: 0.5em;
+  cursor: pointer;
+  position: relative;
+  padding: 3px 20px;
+  background: white;
+  font-size: 24px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  transition: all 1s;
+  &:after,
+  &:before {
+    content: " ";
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    border: 0px solid #fff;
+    transition: all 1s;
+  }
+  &:after {
+    top: -1px;
+    left: -1px;
+    border-top: 5px solid black;
+    border-left: 5px solid black;
+  }
+  &:before {
+    bottom: -1px;
+    right: -1px;
+    border-bottom: 5px solid black;
+    border-right: 5px solid black;
+  }
+  &:hover {
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    background: rgba(255, 255, 255, 0.5);
+    color: rgb(0, 0, 0);
+    &:before,
+    &:after {
+      width: 100%;
+      height: 100%;
+      border-color: rgb(0, 0, 0);
+    }
+  }
+}
+
+.reg-form .reg-btn:hover {
+  background-color: #ffffff; /* Darker shade of green on hover */
 }
 
 .reg-form input {
-  width: 250px;
-  height: 50px;
-  display: block;
-  border: none;
-  outline: none;
-  border-bottom: 2px solid black;
-  padding: 1em;
-  margin: 1em 0;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #000000; /* Light gray border */
+  border-radius: 5px;
   font-size: 1rem;
+  transition: border-color 0.3s ease;
 }
 
+.reg-form input:focus {
+  border-color: #28a745; /* Green border color on focus */
+  outline: none;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .reg {
+    padding: 10px;
+  }
+
+  .reg h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .reg-form {
+    width: 100%;
+  }
+}
 /* job-details-page */
 
 table {
@@ -183,81 +360,104 @@ td {
   min-height: 100vh;
   display: flex;
   flex-flow: row nowrap;
+  font-family: sans-serif;
 }
 
 /* navbar css */
 .jb-container .navbar {
+  font-family: sans-serif;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
   font-size: 1.3rem;
-  border-right: 2px solid black;
-  background-color: rebeccapurple;
+  border-right: 2px solid #f7f7f7;
+  background-color: #ededed;
   width: 13%;
 }
 
 .jb-container .navbar .nav-top div {
-  height: 50px;
+  /* height: 150px; */
   border-bottom: 2px solid black;
   text-align: center;
+  font-family: sans-serif;
 }
 
 .jb-container .navbar .nav-top div h3 {
   padding: 1rem;
+  margin: 0;
 }
 
 .jb-container .navbar ul li {
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid rgb(0, 0, 0);
   padding: 1rem;
   text-align: center;
+  list-style: none;
 }
 
 .jb-container .navbar .nav-bottom ul li {
   border: none;
-  border-top: 2px solid black;
-}
-
-.nav-link:hover {
-  color: bisque;
-  cursor: pointer;
+  border-top: 2px solid rgb(0, 0, 0);
 }
 
 .nav-link {
-  color: black;
-  text-decoration: none;
+  background: linear-gradient(-45deg, #000 40%, #fff 0 60%, #000 0) right/300%
+      100% no-repeat,
+    linear-gradient(-45deg, #0000 40%, #000 0 60%, #0000 0) right/300% 100%
+      no-repeat;
+  -webkit-background-clip: text, padding-box;
+  background-clip: text, padding-box;
+  transition: 0.8s;
+}
+
+.nav-link:hover {
+  color: rgb(0, 0, 0);
+  cursor: pointer;
 }
 
 .active {
-  color: bisque;
+  color: rgb(0, 0, 0);
+  padding-top: 10%;
 }
 
+/* Added a little spacing between links */
+
+/* Improved padding for nav links */
+.jb-container .navbar ul li a {
+  padding: 0.5rem 1rem;
+}
+
+/* Added hover effect for nav links */
+.jb-container .navbar ul li a:hover {
+  background-position: left;
+}
 /* joblisting main */
 .jb-main {
   flex-grow: 1;
-  padding-inline: 1rem;
+  padding: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .jb-header {
   font-size: 1.3rem;
   width: 100%;
   height: 50px;
-  border-bottom: 2px solid black;
-  margin: 15px;
+  border-bottom: 2px solid rgb(0, 0, 0);
+  margin-bottom: 0px;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  padding-inline: 10px;
 }
 
 .jb-header button {
-  width: 70px;
-  height: 35px;
+  width: 100px;
+  padding: 0;
+  margin: 0;
 }
 
 .jb-content {
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-evenly;
+  flex-flow: row wrap;
+  justify-content: space-between;
 }
 
 .jb-content .left {
@@ -272,39 +472,75 @@ td {
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
-  gap: 3rem;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .searchbar input {
+  margin-top: 1em;
   font-size: 1rem;
   width: 250px;
   height: 30px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .searchbar button {
-  width: 130px;
+  display: block;
+  width: 213px;
+  height: 27px;
+  line-height: 25px;
+  font-weight: bold;
+  text-decoration: none;
+  background: #333;
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 3px solid #333;
+  transition: all 0.35s;
+  font-family: sans-serif;
+}
+
+.searchbar button:hover {
+  width: 200px;
+  border: 3px solid #2ecc71;
+  background: transparent;
+  color: #2ecc71;
 }
 
 .listings-nav ul {
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
-  gap: 5rem;
+  gap: 2rem;
   border-bottom: 2px solid black;
   font-size: 1.35rem;
+  padding: 0;
+  list-style: none;
+}
+
+.listings-nav ul li {
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s ease;
 }
 
 .listings-nav ul li:hover {
-  background-color: bisque;
+  background-color: #f8f9fa;
   cursor: pointer;
 }
 
 .listings-job {
-  background-color: bisque;
+  background-color: #ededed;
+  border-radius: 5px;
+  padding: 1rem;
+  margin-top: 1rem;
 }
 
 .listings-job li {
-  border-bottom: 2px solid black;
+  border-bottom: 1px solid #ccc;
+  padding: 0.5rem 0;
 }
 
 .jb-title,
@@ -312,8 +548,10 @@ td {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  padding: 1rem;
+  align-items: center;
+  padding: 0.5rem;
   font-size: 1.2rem;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .jb-actions {
@@ -322,35 +560,117 @@ td {
   gap: 1rem;
 }
 
+.jb-actions button {
+  display: block;
+  width: 84px;
+  height: 38px;
+  line-height: 40px;
+  font-size: 10px;
+  font-family: sans-serif;
+  color: #333;
+  text-align: center;
+  position: relative;
+  transition: all 0.35s;
+  font-size: 0.8rem;
+}
+
+.fav {
+  border: none;
+  padding: 5px;
+}
+.fav svg {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.jb-actions button span {
+  position: relative;
+  z-index: 2;
+}
+
+.jb-actions button:after {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  color: #b90000;
+  transition: all 0.35s;
+}
+
+.jb-actions button:hover {
+  color: #0c0c0c;
+}
+
+.jb-actions button:hover:after {
+  width: 100%;
+  color: #0c0c0c;
+}
+
 /* settings */
 .settings {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
+  align-items: center; /* Center vertically as well */
 }
+
 .setting-form {
-  padding: 8%;
+  padding: 20px;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  gap: 3rem;
+  gap: 2rem; /* Reduced the gap between elements */
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 90%; /* Adjusted width for better responsiveness */
+  max-width: 400px; /* Added max-width for larger screens */
 }
 
 .setting-form label {
   font-size: 1.2rem;
+  margin-bottom: 0.5rem; /* Added margin below labels for spacing */
 }
 
 .setting-form input {
   font-size: 1rem;
-  width: 250px;
-  height: 30px;
-  margin-left: 10px;
+  width: 100%; /* Input fields take full width */
+  height: 40px; /* Increased height for better touch target */
+  padding: 8px; /* Added padding for better input appearance */
+  border: 1px solid #ccc; /* Added border for clarity */
+  border-radius: 4px; /* Rounded corners */
+  box-sizing: border-box; /* Include padding and border in width */
 }
+
 .setting-form button {
-  width: 100px;
-  height: 30px;
+  margin-top: 1em;
+  display: block;
+  width: 200px;
+  height: 35px;
+  line-height: 25px;
+  font-size: 18px;
+  font-family: sans-serif;
+  text-decoration: none;
+  color: #333;
+  border: 2px solid #333;
+  letter-spacing: 1px;
+  text-align: center;
+  position: relative;
+  transition: all 0.35s;
+  background-color: transparent;
+  cursor: pointer;
 }
+
+.set-btn {
+  display: flex;
+  justify-content: center;
+  width: 100%; /* Buttons take full width */
+}
+
 .set-btn button {
-  margin-inline: 1rem;
+  margin: 0.5rem; /* Adjusted margin for spacing */
 }
 
 /* talentpool */
@@ -368,7 +688,7 @@ td {
 }
 
 .talent-header {
-  background-color: beige;
+  background-color: #ededed;
   display: flex;
   justify-content: center;
   padding: 1rem;
@@ -400,7 +720,7 @@ td {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
-  background-color: white;
+  background-color: #ededed;
   padding: 1rem;
   width: 60%;
   height: 85%;
@@ -420,6 +740,7 @@ td {
   display: flex;
   flex-flow: column wrap;
   gap: 1rem;
+  font-family: sans-serif;
 }
 
 .jb-creation-form {
@@ -429,9 +750,33 @@ td {
   margin-top: 1rem;
 }
 
-.jb-creation-form button {
+button {
+  margin-top: 1em;
+  display: block;
+  width: 200px;
+  height: 35px;
+  line-height: 25px;
+  font-size: 18px;
+  font-family: sans-serif;
+  text-decoration: none;
+  color: #333;
+  border: 2px solid #333;
+  letter-spacing: 1px;
+  text-align: center;
+  position: relative;
+  transition: all 0.35s;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+button.modal-close-btn {
   width: 100px;
-  padding: 5px;
+  font-size: 14px;
+}
+
+.jb-creation-form button {
+  width: 200px;
+  font-size: 18px;
 }
 
 .jb-creation-form fieldset {
@@ -439,6 +784,9 @@ td {
   display: flex;
   flex-flow: column nowrap;
   gap: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .custom-form fieldset {
@@ -446,19 +794,24 @@ td {
   flex-flow: column nowrap;
   gap: 1rem;
   padding: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .custom-form div button {
   width: 70px;
   margin-left: 10px;
 }
+
 .custom-form button {
-  width: 70px;
-  padding: 5px;
+  width: 157px;
+  padding: 8px;
 }
 
 .custom-form select {
   width: 100px;
+  padding: 5px;
 }
 
 .jb-creation-form input,
@@ -466,11 +819,30 @@ td {
 .custom-form input,
 .custom-form select {
   margin-left: 1rem;
-  padding: 5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .jb-creation-form textarea {
   max-width: 500px;
+}
+
+@media (max-width: 600px) {
+  .jb-form-container {
+    padding: 1rem;
+  }
+
+  .jb-creation-form button {
+    width: 100%;
+  }
+
+  .jb-creation-form input,
+  .jb-creation-form textarea,
+  .custom-form input,
+  .custom-form select {
+    margin-left: 0;
+  }
 }
 
 /* email form */
@@ -478,105 +850,10 @@ td {
   margin-left: 1rem;
 }
 
-/* canidate assessment */
-.cassessment {
-  font-size: 1.3rem;
-  display: flex;
-  flex-flow: column nowrap;
-  gap: 1rem;
-  padding: 1rem;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 100vh;
-}
-
-#cid {
-  width: 15rem;
-  height: 1.7rem;
-}
-.cassessment fieldset {
-  width: 50%;
-  padding: 1rem;
-  display: flex;
-  flex-flow: column wrap;
-  gap: 0.5rem;
-}
-.cassessment button {
-  font-size: 1rem;
-  width: 10rem;
-  height: 3rem;
-}
-
-.util-btns button {
-  margin-inline: 1rem;
-}
-
-/* candidate application form */
-.candidate-application-form-title {
-  text-align: center;
-  text-decoration: underline;
-}
-.candidate-application-form {
-  font-size: 1.2rem;
-  display: flex;
-  flex-flow: column nowrap;
-  gap: 1rem;
-  padding: 1rem;
-}
-
-.candidate-application-form input {
-  margin-left: 1rem;
-}
-
-.candidate-application-form button {
-  width: 8rem;
-  height: 2rem;
-}
-
-/* error component */
-.error-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f8f9fa; /* Light gray background */
-}
-
-.error-content {
-  text-align: center;
-}
-
-.error-heading {
-  font-size: 28px;
-  margin-bottom: 20px;
-  color: #dc3545; /* Red color for the heading */
-}
-
-.error-message {
-  font-size: 18px;
-  margin-bottom: 30px;
-  color: #6c757d; /* Dark gray color for the message */
-}
-
-.error-link {
-  text-decoration: none;
-  color: #007bff; /* Blue color for the link */
-  font-size: 16px;
-  padding: 10px 20px;
-  border: 2px solid #007bff; /* Blue border */
-  border-radius: 5px;
-  transition: all 0.3s ease;
-}
-
-.error-link:hover {
-  background-color: #007bff; /* Blue background on hover */
-  color: #fff; /* White color on hover */
-}
-
-.no {
-  text-align: center;
-  font-size: 2rem;
-  padding: 1rem;
-  color: #6c757d;
-  font-weight: bold;
+td button {
+  width: 50px;
+  margin: 0;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
 }

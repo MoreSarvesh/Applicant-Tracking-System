@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import { ImStarEmpty } from "react-icons/im";
+import { ImStarFull } from "react-icons/im";
+import { FiUserCheck } from "react-icons/fi";
+import { FiUserX } from "react-icons/fi";
+import { FiUserPlus } from "react-icons/fi";
 const Joblist = ({
   title,
   count,
@@ -74,16 +78,24 @@ const Joblist = ({
           {title}
         </NavLink>
         <div className="jb-actions">
-          <button onClick={favouriteJob}>{fav ? "true" : "false"}</button>
+          <button onClick={favouriteJob} className="fav">
+            {fav ? <ImStarFull /> : <ImStarEmpty />}
+          </button>
           <button onClick={deleteJob}>Delete</button>
         </div>
       </div>
       <div className="jb-info">
         {count} Candidate
         <div className="jb-actions">
-          <button>{openings}-openings</button>
-          <button>{hired}-hired</button>
-          <button>{rejected}-rejected</button>
+          <button className="fav">
+            {openings} <FiUserPlus />
+          </button>
+          <button className="fav">
+            {hired} <FiUserCheck />
+          </button>
+          <button className="fav">
+            {rejected} <FiUserX />
+          </button>
         </div>
       </div>
       <div className="public-links">

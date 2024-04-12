@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
+import { ImStarEmpty } from "react-icons/im";
+import { ImStarFull } from "react-icons/im";
 
 const Assessmentlist = ({ title, attemptCount, id, favourite }) => {
   const [fav, setFav] = useState(favourite);
@@ -68,8 +70,8 @@ const Assessmentlist = ({ title, attemptCount, id, favourite }) => {
           {title}
         </NavLink>
         <div className="jb-actions">
-          <button onClick={updateAssessmentFav}>
-            {fav ? "true" : "false"}
+          <button onClick={updateAssessmentFav} className="fav">
+            {fav ? <ImStarFull /> : <ImStarEmpty />}
           </button>
           <button onClick={handleDelete}>Delete</button>
         </div>
