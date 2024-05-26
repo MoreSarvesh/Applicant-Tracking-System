@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 import { Form, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import Modal from "../components/Modal.component.jsx";
 
 const CandidateApplication = () => {
   const jid = useParams();
   const [applicationFormData, setApplicationFormData] = useState([]);
+  const [candidateId, setCandidateId] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const [candidateData, setCandidateData] = useState({
     name: "",
     email: "",
@@ -53,11 +57,15 @@ const CandidateApplication = () => {
     formData.append("email", candidateData.email);
     formData.append("details", JSON.stringify(candidateData.details));
     formData.append("resume", candidateData.resume);
-    const response = await fetch(
-      `http://localhost:5000/candidate/store?jobid=${jid.id}`,
-      {
+    const response = await toast.promise(
+      fetch(`http://localhost:5000/candidate/store?jobid=${jid.id}`, {
         method: "POST",
         body: formData,
+      }),
+      {
+        pending: "Submitting response",
+        error: "Error",
+        success: "Success",
       }
     );
     if (!response.ok) {
@@ -69,6 +77,9 @@ const CandidateApplication = () => {
     console.log("Applied Successfully");
     const jobApplicationData = await response.json();
     console.log(jobApplicationData);
+    setCandidateId(jobApplicationData.candidateId);
+    setShowModal(true);
+    return;
   };
 
   return (
@@ -167,6 +178,11 @@ const CandidateApplication = () => {
         })}
         <button type="submit">Submit</button>
       </form>
+      {showModal && (
+        <Modal title="Successfully Applied" setShowModal={setShowModal}>
+          {"Save your Candidate ID for Future reference" + candidateId}
+        </Modal>
+      )}
     </>
   );
 };
